@@ -3,6 +3,26 @@ using Vector3 = UnityEngine.Vector3;
 
 public class Paddle : MonoBehaviour
 {
+    #region Singleton
+
+    private static Paddle _instance;
+
+    public static Paddle Instance => _instance;
+
+    private void Awake()
+    {
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
+
+    #endregion
+    
     public float speed;
     private Rigidbody2D rb;
     private Vector3 movement = Vector3.zero;
