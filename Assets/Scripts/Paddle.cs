@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Vector3 = UnityEngine.Vector3;
 
 public class Paddle : MonoBehaviour
@@ -22,8 +24,9 @@ public class Paddle : MonoBehaviour
     }
 
     #endregion
-    
-    public float speed;
+
+    public float paddleSpeed;
+    public float deflectionStrength;
     private Rigidbody2D rb;
     private Vector3 movement = Vector3.zero;
     private SpriteRenderer sr;
@@ -39,20 +42,24 @@ public class Paddle : MonoBehaviour
     private void Update()
     {
         AdaptBoxColliderToSpriteSize();
-        
+
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            movement = new Vector3(1 * speed, 0, 0);
-        } else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            movement = new Vector3(1 * paddleSpeed, 0, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            movement = new Vector3(-1 * speed, 0, 0);
-        } else if (Input.GetKeyUp(KeyCode.RightArrow) && movement.x > 0)
-        {
-            movement = Vector3.zero;
-        } else if (Input.GetKeyUp(KeyCode.LeftArrow) && movement.x < 0)
+            movement = new Vector3(-1 * paddleSpeed, 0, 0);
+        }
+        else if (Input.GetKeyUp(KeyCode.RightArrow) && movement.x > 0)
         {
             movement = Vector3.zero;
         }
+        else if (Input.GetKeyUp(KeyCode.LeftArrow) && movement.x < 0)
+        {
+            movement = Vector3.zero;
+        }
+
         rb.velocity = movement;
     }
 
@@ -62,6 +69,21 @@ public class Paddle : MonoBehaviour
         {
             Vector2 size = sr.size;
             bc.size = new Vector2(size.x, size.y);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Ball"))
+        {
+            Rigidbody2D ballRb = col.gameObject.GetComponent<Rigidbody2D>();
+            Vector3 hitPoint = col.contacts[0].point;
+            Vector3 paddlePosition = this.gameObject.transform.position;
+            Vector3 paddleCenter = new Vector3(paddlePosition.x, paddlePosition.y, 0);
+            
+            ballRb.velocity = Vector2.zero;
+            ballRb.AddForce(new Vector2((hitPoint.x - paddleCenter.x) * deflectionStrength,
+                BallManager.Instance.initialBallSpeed));
         }
     }
 }

@@ -27,6 +27,7 @@ public class BallManager : MonoBehaviour
 
     public Ball ballPrefab;
     public float initialBallSpacingToPaddle;
+    public float initialBallSpeed;
     private Ball initialBall;
     private Rigidbody2D initialBallRb;
     public List<Ball> Balls { get; set; }
@@ -34,6 +35,23 @@ public class BallManager : MonoBehaviour
     private void Start()
     {
         InitBall();
+    }
+
+    private void Update()
+    {
+        if (!GameManager.Instance.isGameRunning)
+        {
+            Vector3 paddlePosition = Paddle.Instance.gameObject.transform.position;
+            initialBall.transform.position =
+                new Vector3(paddlePosition.x, paddlePosition.y + initialBallSpacingToPaddle, 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && !GameManager.Instance.isGameRunning)
+        {
+            initialBallRb.isKinematic = false;
+            initialBallRb.AddForce(new Vector2(0, initialBallSpeed));
+            GameManager.Instance.isGameRunning = true;
+        }
     }
 
     private void InitBall()
