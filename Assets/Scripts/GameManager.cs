@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public bool isGameRunning { get; set; }
+    [HideInInspector] public int currentLevel = 1;
 
     private void Start()
     {

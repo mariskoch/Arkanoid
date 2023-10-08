@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BrickManager : MonoBehaviour
 {
@@ -25,4 +27,25 @@ public class BrickManager : MonoBehaviour
     #endregion
 
     public Sprite[] Sprites;
+
+    [HideInInspector] public int bricksAlive = 0;
+
+    private void Update()
+    {
+        if (bricksAlive <= 0)
+        {
+            LoadNextLevel();
+        }
+    }
+
+    private void LoadNextLevel()
+    {
+        int levelNumber = GameManager.Instance.currentLevel;
+        if (levelNumber >= 2)
+        {
+            return;
+        }
+        levelNumber++;
+        SceneManager.LoadScene("Level" + levelNumber);
+    }
 }

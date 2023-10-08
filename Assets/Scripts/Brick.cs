@@ -5,7 +5,7 @@ public class Brick : MonoBehaviour
 {
     public int hitPoints;
     public ParticleSystem destroyAnimation;
-    
+
     public static event Action<Brick> OnBrickDestruction;
 
     private SpriteRenderer sr;
@@ -14,6 +14,8 @@ public class Brick : MonoBehaviour
     {
         sr = this.gameObject.GetComponent<SpriteRenderer>();
         this.sr.sprite = BrickManager.Instance.Sprites[this.hitPoints -1];
+
+        BrickManager.Instance.bricksAlive++;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -32,6 +34,7 @@ public class Brick : MonoBehaviour
         if (hitPoints <= 0)
         {
             SpawnDestroyEffect();
+            BrickManager.Instance.bricksAlive--;
             Destroy(this.gameObject);
         }
         else
