@@ -26,10 +26,35 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public bool isGameRunning { get; set; }
+    public int AvailableLives = 2;
     [HideInInspector] public int currentLevel = 1;
+    [HideInInspector] public int Lives { get; set; }
 
     private void Start()
     {
         // Screen.SetResolution(450, 437, false);
+        this.Lives = AvailableLives;
+        Ball.OnBallDeath += OnBallDeath;
+    }
+
+    private void OnBallDeath(Ball ball)
+    {
+        if (BallManager.Instance.Balls.Count <= 0)
+        {
+            this.Lives--;
+
+            if (this.Lives <= 0)
+            {
+                // show game over screen
+            }
+            else
+            {
+                // reset ball
+                // stop the game
+                // reload the scene
+
+                BallManager.Instance.ResetBalls();
+            }
+        }
     }
 }
