@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Screen = UnityEngine.Device.Screen;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //Screen.SetResolution(450, 437, false);
+        //Screen.SetResolution(2560, 1440, true);
         Lives = AvailableLives;
         Ball.OnBallDeath += OnBallDeath;
     }
