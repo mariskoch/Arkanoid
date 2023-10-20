@@ -40,7 +40,7 @@ public class BallManager : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.isGameRunning)
+        if (!GameManager.Instance.isGameRunning && !GameManager.Instance.isGameOver)
         {
             Vector3 paddlePosition = Paddle.Instance.gameObject.transform.position;
             initialBall.transform.position =

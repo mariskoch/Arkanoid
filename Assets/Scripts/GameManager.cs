@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(this.gameObject);
+        
         if (_instance != null)
         {
             Destroy(gameObject);
@@ -25,15 +28,19 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public bool isGameRunning { get; set; }
+    [HideInInspector] public bool isGameRunning { get; set; }
+    [HideInInspector] public bool isGameOver { get; set; }
     public int AvailableLives = 2;
     [HideInInspector] public int currentLevel = 1;
     [HideInInspector] public int Lives { get; set; }
+    public GameObject gameOverScreenPrefab;
+    private GameObject gameOverCanvas;
+    public int availableLevels = 2;
 
     private void Start()
     {
-        // Screen.SetResolution(450, 437, false);
-        this.Lives = AvailableLives;
+        //Screen.SetResolution(450, 437, false);
+        Lives = AvailableLives;
         Ball.OnBallDeath += OnBallDeath;
     }
 
@@ -45,16 +52,54 @@ public class GameManager : MonoBehaviour
 
             if (this.Lives <= 0)
             {
-                // show game over screen
+                isGameRunning = false;
+                isGameOver = true;
+                ShowGameOverScreen();
             }
             else
             {
-                // reset ball
-                // stop the game
-                // reload the scene
-
                 BallManager.Instance.ResetBalls();
+                isGameRunning = false;
+                int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+                SceneManager.LoadScene(currentSceneIndex);
             }
         }
     }
+
+    private void ShowGameOverScreen()
+    {
+        gameOverCanvas = Instantiate(gameOverScreenPrefab);
+        gameOverCanvas.SetActive(true);
+    }
+
+    private void HideGameOverScreen()
+    {
+        if (gameOverCanvas != null)
+        {
+            gameOverCanvas.SetActive(false);
+        }
+    }
+
+    private void OnDisable()
+    {
+        Ball.OnBallDeath -= OnBallDeath;
+    }
+
+    public void ResetLives()
+    {
+        Lives = AvailableLives;
+    }
+    
+    public void LoadNextLevel()
+    {
+        isGameRunning = false;
+        if (currentLevel >= availableLevels)
+        {
+            return;
+        }
+        currentLevel++;
+        SceneManager.LoadScene("Level" + currentLevel);
+    }
 }
+
+

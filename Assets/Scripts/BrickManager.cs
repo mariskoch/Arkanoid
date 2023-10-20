@@ -27,25 +27,17 @@ public class BrickManager : MonoBehaviour
     #endregion
 
     public Sprite[] Sprites;
-
+    public GameObject LevelPassedCanvasPrefab;
+    
     [HideInInspector] public int bricksAlive = 0;
 
     private void Update()
     {
-        if (bricksAlive <= 0)
+        if (bricksAlive <= 0  && GameManager.Instance.isGameRunning)
         {
-            LoadNextLevel();
+            GameManager.Instance.isGameRunning = false;
+            BallManager.Instance.ResetBalls();
+            Instantiate(LevelPassedCanvasPrefab);
         }
-    }
-
-    private void LoadNextLevel()
-    {
-        int levelNumber = GameManager.Instance.currentLevel;
-        if (levelNumber >= 2)
-        {
-            return;
-        }
-        levelNumber++;
-        SceneManager.LoadScene("Level" + levelNumber);
     }
 }
