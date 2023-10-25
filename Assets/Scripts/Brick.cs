@@ -4,42 +4,45 @@ using UnityEngine;
 public class Brick : MonoBehaviour
 {
     public int hitPoints;
+    public int OriginalHitPoints { private set; get; }
     public ParticleSystem destroyAnimation;
 
     public static event Action<Brick> OnBrickDestruction;
 
-    private SpriteRenderer sr;
+    private SpriteRenderer _sr;
 
     private void Start()
     {
-        sr = this.gameObject.GetComponent<SpriteRenderer>();
-        this.sr.sprite = BrickManager.Instance.Sprites[this.hitPoints -1];
+        _sr = this.gameObject.GetComponent<SpriteRenderer>();
+        this._sr.sprite = BrickManager.Instance.Sprites[this.hitPoints - 1];
 
         BrickManager.Instance.bricksAlive++;
+
+        OriginalHitPoints = hitPoints;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.CompareTag("Ball"))
         {
-           HandleReduceLife();
+            HandleReduceLife();
         }
     }
 
     private void HandleReduceLife()
     {
         hitPoints--;
-        OnBrickDestruction?.Invoke(this);
-        
+
         if (hitPoints <= 0)
         {
+            OnBrickDestruction?.Invoke(this);
             SpawnDestroyEffect();
             BrickManager.Instance.bricksAlive--;
             Destroy(this.gameObject);
         }
         else
         {
-            this.sr.sprite = BrickManager.Instance.Sprites[this.hitPoints -1];
+            this._sr.sprite = BrickManager.Instance.Sprites[this.hitPoints - 1];
         }
     }
 
@@ -47,9 +50,9 @@ public class Brick : MonoBehaviour
     {
         Vector3 brickPos = this.transform.position;
         GameObject effect = Instantiate(destroyAnimation.gameObject, brickPos, Quaternion.identity);
-        
+
         ParticleSystem.MainModule mm = effect.GetComponent<ParticleSystem>().main;
-        mm.startColor = this.sr.color;
+        mm.startColor = this._sr.color;
         Destroy(effect, destroyAnimation.main.startLifetime.constant);
     }
 }

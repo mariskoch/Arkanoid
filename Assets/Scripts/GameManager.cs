@@ -34,12 +34,14 @@ public class GameManager : MonoBehaviour
     public bool IsGameOver { get; set; }
     public event Action<int> OnLiveReduction;
     public int Lives { get; set; }
+    public int Score { get; set; }
     private GameObject _gameOverCanvas;
 
     private void Start()
     {
         //Screen.SetResolution(2560, 1440, true);
         ResetLives();
+        Score = 0;
         Ball.OnBallDeath += OnBallDeath;
     }
 

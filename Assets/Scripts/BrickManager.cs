@@ -24,6 +24,7 @@ public class BrickManager : MonoBehaviour
 
     public Sprite[] Sprites;
     public GameObject LevelPassedCanvasPrefab;
+    private GameObject _levelPassedInstance;
     
     [HideInInspector] public int bricksAlive = 0;
 
@@ -33,7 +34,10 @@ public class BrickManager : MonoBehaviour
         {
             GameManager.Instance.IsGameRunning = false;
             BallManager.Instance.ResetBalls();
-            Instantiate(LevelPassedCanvasPrefab);
+            if (_levelPassedInstance == null)
+            {
+                _levelPassedInstance = Instantiate(LevelPassedCanvasPrefab);
+            }
         }
     }
 }
