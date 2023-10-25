@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class BrickManager : MonoBehaviour
 {
@@ -33,9 +29,9 @@ public class BrickManager : MonoBehaviour
 
     private void Update()
     {
-        if (bricksAlive <= 0  && GameManager.Instance.isGameRunning)
+        if (bricksAlive <= 0  && GameManager.Instance.IsGameRunning)
         {
-            GameManager.Instance.isGameRunning = false;
+            GameManager.Instance.IsGameRunning = false;
             BallManager.Instance.ResetBalls();
             Instantiate(LevelPassedCanvasPrefab);
         }

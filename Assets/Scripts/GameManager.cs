@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Screen = UnityEngine.Device.Screen;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,7 +13,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        
+
         if (_instance != null)
         {
             Destroy(gameObject);
@@ -29,19 +26,20 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    [HideInInspector] public bool isGameRunning { get; set; }
-    [HideInInspector] public bool isGameOver { get; set; }
-    public int AvailableLives = 2;
     [HideInInspector] public int currentLevel = 1;
-    [HideInInspector] public int Lives { get; set; }
-    public GameObject gameOverScreenPrefab;
-    private GameObject gameOverCanvas;
     public int availableLevels = 2;
+    public int availableLives = 2;
+    public GameObject gameOverScreenPrefab;
+    public bool IsGameRunning { get; set; }
+    public bool IsGameOver { get; set; }
+    public event Action<int> OnLiveReduction;
+    public int Lives { get; set; }
+    private GameObject _gameOverCanvas;
 
     private void Start()
     {
         //Screen.SetResolution(2560, 1440, true);
-        Lives = AvailableLives;
+        ResetLives();
         Ball.OnBallDeath += OnBallDeath;
     }
 
@@ -51,16 +49,18 @@ public class GameManager : MonoBehaviour
         {
             this.Lives--;
 
+            OnLiveReduction?.Invoke(Lives);
+            
             if (this.Lives <= 0)
             {
-                isGameRunning = false;
-                isGameOver = true;
+                IsGameRunning = false;
+                IsGameOver = true;
                 ShowGameOverScreen();
             }
             else
             {
                 BallManager.Instance.ResetBalls();
-                isGameRunning = false;
+                IsGameRunning = false;
                 int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
                 SceneManager.LoadScene(currentSceneIndex);
             }
@@ -69,15 +69,15 @@ public class GameManager : MonoBehaviour
 
     private void ShowGameOverScreen()
     {
-        gameOverCanvas = Instantiate(gameOverScreenPrefab);
-        gameOverCanvas.SetActive(true);
+        _gameOverCanvas = Instantiate(gameOverScreenPrefab);
+        _gameOverCanvas.SetActive(true);
     }
 
     private void HideGameOverScreen()
     {
-        if (gameOverCanvas != null)
+        if (_gameOverCanvas != null)
         {
-            gameOverCanvas.SetActive(false);
+            _gameOverCanvas.SetActive(false);
         }
     }
 
@@ -88,12 +88,13 @@ public class GameManager : MonoBehaviour
 
     public void ResetLives()
     {
-        Lives = AvailableLives;
+        Lives = availableLives;
+        UIManager.Instance.SetLives(availableLives);
     }
     
     public void LoadNextLevel()
     {
-        isGameRunning = false;
+        IsGameRunning = false;
         if (currentLevel >= availableLevels)
         {
             return;

@@ -40,18 +40,18 @@ public class BallManager : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.isGameRunning && !GameManager.Instance.isGameOver)
+        if (!GameManager.Instance.IsGameRunning && !GameManager.Instance.IsGameOver)
         {
             Vector3 paddlePosition = Paddle.Instance.gameObject.transform.position;
             initialBall.transform.position =
                 new Vector3(paddlePosition.x, paddlePosition.y + initialBallSpacingToPaddle, 0);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !GameManager.Instance.isGameRunning)
+        if (Input.GetKeyDown(KeyCode.Space) && !GameManager.Instance.IsGameRunning)
         {
             initialBallRb.isKinematic = false;
             initialBallRb.AddForce(new Vector2(0, initialBallSpeed));
-            GameManager.Instance.isGameRunning = true;
+            GameManager.Instance.IsGameRunning = true;
         }
     }
 

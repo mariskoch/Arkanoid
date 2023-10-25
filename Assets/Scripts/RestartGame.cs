@@ -11,6 +11,7 @@ public class RestartGame : MonoBehaviour
         button.onClick.AddListener(() =>
         {
             GameManager.Instance.ResetLives();
+            GameManager.Instance.currentLevel = 1;
             SceneManager.LoadScene("Level1");
         });
     }
