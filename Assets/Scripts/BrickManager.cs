@@ -37,6 +37,7 @@ public class BrickManager : MonoBehaviour
             if (_levelPassedInstance == null)
             {
                 _levelPassedInstance = Instantiate(LevelPassedCanvasPrefab);
+                UIManager.Instance.SaveScore();
             }
         }
     }

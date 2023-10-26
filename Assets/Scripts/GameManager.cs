@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public event Action<int> OnLiveReduction;
     public int Lives { get; set; }
     public int Score { get; set; }
+    public int VolatileScore { get; set; }
     private GameObject _gameOverCanvas;
 
     private void Start()
@@ -65,12 +66,16 @@ public class GameManager : MonoBehaviour
                 IsGameRunning = false;
                 int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
                 SceneManager.LoadScene(currentSceneIndex);
+                UIManager.Instance.SetVScore(0);
+                VolatileScore = 0;
             }
         }
     }
 
     private void ShowGameOverScreen()
     {
+        UIManager.Instance.SetVScore(0);
+        VolatileScore = 0;
         _gameOverCanvas = Instantiate(gameOverScreenPrefab);
         _gameOverCanvas.SetActive(true);
     }
