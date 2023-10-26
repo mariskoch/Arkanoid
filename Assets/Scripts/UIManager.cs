@@ -86,9 +86,9 @@ public class UIManager : MonoBehaviour
 
     public void SaveScore()
     {
-        GameManager.Instance.Score += GameManager.Instance.VolatileScore;
+        GameManager.Instance.Score += (int)(GameManager.Instance.VolatileScore * Multiplier.Instance.MultiplierValue);
+        GameManager.Instance.VolatileScore = 0;
         SetScore(GameManager.Instance.Score);
         SetVScore(0);
-        GameManager.Instance.VolatileScore = 0;
     }
 }
