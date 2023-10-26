@@ -80,10 +80,10 @@ public class Paddle : MonoBehaviour
             Vector3 hitPoint = col.contacts[0].point;
             Vector3 paddlePosition = this.gameObject.transform.position;
             Vector3 paddleCenter = new Vector3(paddlePosition.x, paddlePosition.y, 0);
-            
+
             ballRb.velocity = Vector2.zero;
             ballRb.AddForce(new Vector2((hitPoint.x - paddleCenter.x) * deflectionStrength,
-                BallManager.Instance.initialBallSpeed));
+                BallManager.Instance.initialBallSpeed).normalized * BallManager.Instance.initialBallSpeed);
         }
     }
 }

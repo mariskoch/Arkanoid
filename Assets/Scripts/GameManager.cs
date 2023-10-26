@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
             {
                 BallManager.Instance.ResetBalls();
                 IsGameRunning = false;
-                int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+                var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
                 SceneManager.LoadScene(currentSceneIndex);
                 UIManager.Instance.SetVScore(0);
                 VolatileScore = 0;
@@ -113,5 +113,3 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Level" + currentLevel);
     }
 }
-
-

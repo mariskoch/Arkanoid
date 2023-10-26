@@ -48,6 +48,10 @@ public class Multiplier : MonoBehaviour
     {
         var timePassed = Timer.Instance.TimePassed;
         var currentMultiplier = startMultiplier - (timePassed / declineRateInSeconds);
+        if (currentMultiplier < 1.0f)
+        {
+            currentMultiplier = 1.0f;
+        }
         SetMultiplierDisplay(currentMultiplier);
         MultiplierValue = currentMultiplier;
     }
