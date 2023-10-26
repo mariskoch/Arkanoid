@@ -23,20 +23,26 @@ public class Timer : MonoBehaviour
 
     #endregion
 
+    public float TimePassed { get; private set; }
+    public bool IsRunning { get; private set; }
+    
     private TextMeshProUGUI _timerText;
     private float _startTime;
-    private bool _isRunning;
 
     private void Start()
     {
         _timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
+        TimePassed = 0;
+        IsRunning = false;
     }
 
     private void Update()
     {
-        if (_isRunning)
+        if (IsRunning)
         {
-            UpdateTimer(Time.time - _startTime);
+            var elapsedTime = Time.time - _startTime;
+            TimePassed = elapsedTime;
+            UpdateTimer(elapsedTime);
         }
     }
 
@@ -51,12 +57,12 @@ public class Timer : MonoBehaviour
     public void StartTimer()
     {
         _startTime = Time.time;
-        _isRunning = true;
+        IsRunning = true;
     }
 
     public void StopTimer(bool resetDisplay = false)
     {
-        _isRunning = false;
+        IsRunning = false;
         if (resetDisplay)
         {
             ResetTimer();
@@ -66,5 +72,7 @@ public class Timer : MonoBehaviour
     public void ResetTimer()
     {
         _timerText.text = "00:00.000";
+        TimePassed = 0;
+        Multiplier.Instance.ResetMultiplier();
     }
 }
