@@ -49,6 +49,7 @@ public class BallManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && !GameManager.Instance.IsGameRunning)
         {
+            Timer.Instance.StartTimer();
             initialBallRb.isKinematic = false;
             initialBallRb.AddForce(new Vector2(0, initialBallSpeed));
             GameManager.Instance.IsGameRunning = true;

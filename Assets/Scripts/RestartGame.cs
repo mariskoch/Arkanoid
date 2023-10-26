@@ -14,6 +14,7 @@ public class RestartGame : MonoBehaviour
             GameManager.Instance.currentLevel = 1;
             UIManager.Instance.ResetScore();
             SceneManager.LoadScene("Level1");
+            Timer.Instance.ResetTimer();
         });
     }
 }

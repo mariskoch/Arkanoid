@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
                 IsGameRunning = false;
                 IsGameOver = true;
                 ShowGameOverScreen();
+                Timer.Instance.StopTimer();
             }
             else
             {
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene(currentSceneIndex);
                 UIManager.Instance.SetVScore(0);
                 VolatileScore = 0;
+                Timer.Instance.StopTimer(true);
             }
         }
     }
@@ -106,6 +108,7 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
+        Timer.Instance.ResetTimer();
         currentLevel++;
         SceneManager.LoadScene("Level" + currentLevel);
     }
