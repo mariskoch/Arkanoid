@@ -2,6 +2,7 @@
 {
     public enum GameState
     {
+        Menu,
         ReadyToPlay,
         GameRunning,
         Win,
