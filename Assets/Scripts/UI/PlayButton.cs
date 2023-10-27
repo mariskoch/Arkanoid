@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Utils;
 
 public class PlayButton : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class PlayButton : MonoBehaviour
         _playButton = GetComponent<Button>();
         _playButton.onClick.AddListener(() =>
         {
+            if (GameManager.Instance)
+            {
+                GameManager.Instance.GameState = GameState.ReadyToPlay;
+            }
             SceneManager.LoadScene("Level1");
         });
     }
