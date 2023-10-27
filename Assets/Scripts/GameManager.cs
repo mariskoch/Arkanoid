@@ -31,22 +31,11 @@ public class GameManager : MonoBehaviour
     public int availableLevels = 2;
     public int availableLives = 2;
     public GameObject gameOverScreenPrefab;
-    public bool IsGameRunning { get; set; }
-    public bool IsGameOver { get; set; }
     public event Action<int> OnLiveReduction;
     public int Lives { get; set; }
     public int Score { get; set; }
     public int VolatileScore { get; set; }
-    private GameState _gameState;
-    public GameState GameState
-    {
-        get => _gameState;
-        set
-        {
-            Debug.Log("GameState has been changed to: " + value);
-            _gameState = value;
-        }
-    }
+    public GameState GameState { get; set; }
     private GameObject _gameOverCanvas;
 
     private void Start()
@@ -65,12 +54,10 @@ public class GameManager : MonoBehaviour
             this.Lives--;
 
             OnLiveReduction?.Invoke(Lives);
-            
+
             if (this.Lives <= 0)
             {
                 GameState = GameState.GameOver;
-                IsGameRunning = false;
-                IsGameOver = true;
                 ShowGameOverScreen();
                 Timer.Instance.StopTimer();
             }
@@ -78,7 +65,6 @@ public class GameManager : MonoBehaviour
             {
                 GameState = GameState.ReadyToPlay;
                 BallManager.Instance.ResetBalls();
-                IsGameRunning = false;
                 var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
                 SceneManager.LoadScene(currentSceneIndex);
                 UIManager.Instance.SetVScore(0);
@@ -114,14 +100,14 @@ public class GameManager : MonoBehaviour
         Lives = availableLives;
         UIManager.Instance.SetLives(availableLives);
     }
-    
+
     public void LoadNextLevel()
     {
-        IsGameRunning = false;
         if (currentLevel >= availableLevels)
         {
             return;
         }
+
         Timer.Instance.ResetTimer();
         currentLevel++;
         SceneManager.LoadScene("Level" + currentLevel);

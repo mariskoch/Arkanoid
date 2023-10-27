@@ -31,10 +31,9 @@ public class BrickManager : MonoBehaviour
 
     private void Update()
     {
-        if (bricksAlive <= 0  && GameManager.Instance.IsGameRunning)
+        if (bricksAlive <= 0  && GameManager.Instance.GameState == GameState.GameRunning)
         {
             GameManager.Instance.GameState = GameState.Win;
-            GameManager.Instance.IsGameRunning = false;
             BallManager.Instance.ResetBalls();
             if (_levelPassedInstance == null)
             {

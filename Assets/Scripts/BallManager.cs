@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -41,20 +39,21 @@ public class BallManager : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.IsGameRunning && !GameManager.Instance.IsGameOver)
+        // moving the ball with the paddle before game starts
+        if (GameManager.Instance.GameState == GameState.ReadyToPlay && _initialBall != null)
         {
             Vector3 paddlePosition = Paddle.Instance.gameObject.transform.position;
             _initialBall.transform.position =
                 new Vector3(paddlePosition.x, paddlePosition.y + initialBallSpacingToPaddle, 0);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !GameManager.Instance.IsGameRunning)
+        // starting the game by pressing space
+        if (GameManager.Instance.GameState == GameState.ReadyToPlay && Input.GetKeyDown(KeyCode.Space))
         {
             GameManager.Instance.GameState = GameState.GameRunning;
             Timer.Instance.StartTimer();
             _initialBallRb.isKinematic = false;
             _initialBallRb.AddForce(new Vector2(0, initialBallSpeed));
-            GameManager.Instance.IsGameRunning = true;
         }
     }
 
