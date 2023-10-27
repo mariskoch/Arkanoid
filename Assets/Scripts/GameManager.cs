@@ -52,10 +52,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //Screen.SetResolution(2560, 1440, true);
+        GameState = GameState.ReadyToPlay;
         ResetLives();
         Score = 0;
         Ball.OnBallDeath += OnBallDeath;
-        GameState = GameState.ReadyToPlay;
     }
 
     private void OnBallDeath(Ball ball)

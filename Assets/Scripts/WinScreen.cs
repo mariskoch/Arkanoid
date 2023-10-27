@@ -15,8 +15,8 @@ public class WinScreen : MonoBehaviour
         
         _nextLevelButton.onClick.AddListener(() =>
         {
-            GameManager.Instance.LoadNextLevel();
             GameManager.Instance.GameState = GameState.ReadyToPlay;
+            GameManager.Instance.LoadNextLevel();
         });
     }
 }
