@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utils;
 
 public class BrickManager : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class BrickManager : MonoBehaviour
     {
         if (bricksAlive <= 0  && GameManager.Instance.IsGameRunning)
         {
+            GameManager.Instance.GameState = GameState.Win;
             GameManager.Instance.IsGameRunning = false;
             BallManager.Instance.ResetBalls();
             if (_levelPassedInstance == null)

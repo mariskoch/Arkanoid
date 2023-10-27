@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 public class WinScreen : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class WinScreen : MonoBehaviour
         _nextLevelButton.onClick.AddListener(() =>
         {
             GameManager.Instance.LoadNextLevel();
+            GameManager.Instance.GameState = GameState.ReadyToPlay;
         });
     }
 }

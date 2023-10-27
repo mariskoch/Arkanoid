@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Utils;
 
 public class RestartGame : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class RestartGame : MonoBehaviour
     {
         button.onClick.AddListener(() =>
         {
+            GameManager.Instance.GameState = GameState.ReadyToPlay;
             GameManager.Instance.ResetLives();
             GameManager.Instance.currentLevel = 1;
             UIManager.Instance.ResetScore();

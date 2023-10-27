@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,6 +37,16 @@ public class GameManager : MonoBehaviour
     public int Lives { get; set; }
     public int Score { get; set; }
     public int VolatileScore { get; set; }
+    private GameState _gameState;
+    public GameState GameState
+    {
+        get => _gameState;
+        set
+        {
+            Debug.Log("GameState has been changed to: " + value);
+            _gameState = value;
+        }
+    }
     private GameObject _gameOverCanvas;
 
     private void Start()
@@ -44,6 +55,7 @@ public class GameManager : MonoBehaviour
         ResetLives();
         Score = 0;
         Ball.OnBallDeath += OnBallDeath;
+        GameState = GameState.ReadyToPlay;
     }
 
     private void OnBallDeath(Ball ball)
@@ -56,6 +68,7 @@ public class GameManager : MonoBehaviour
             
             if (this.Lives <= 0)
             {
+                GameState = GameState.GameOver;
                 IsGameRunning = false;
                 IsGameOver = true;
                 ShowGameOverScreen();
@@ -63,6 +76,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                GameState = GameState.ReadyToPlay;
                 BallManager.Instance.ResetBalls();
                 IsGameRunning = false;
                 var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;

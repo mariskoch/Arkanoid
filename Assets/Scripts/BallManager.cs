@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utils;
 
 public class BallManager : MonoBehaviour
 {
@@ -29,8 +30,8 @@ public class BallManager : MonoBehaviour
     public Ball ballPrefab;
     public float initialBallSpacingToPaddle;
     public float initialBallSpeed;
-    private Ball initialBall;
-    private Rigidbody2D initialBallRb;
+    private Ball _initialBall;
+    private Rigidbody2D _initialBallRb;
     public List<Ball> Balls { get; set; }
 
     private void Start()
@@ -43,15 +44,16 @@ public class BallManager : MonoBehaviour
         if (!GameManager.Instance.IsGameRunning && !GameManager.Instance.IsGameOver)
         {
             Vector3 paddlePosition = Paddle.Instance.gameObject.transform.position;
-            initialBall.transform.position =
+            _initialBall.transform.position =
                 new Vector3(paddlePosition.x, paddlePosition.y + initialBallSpacingToPaddle, 0);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && !GameManager.Instance.IsGameRunning)
         {
+            GameManager.Instance.GameState = GameState.GameRunning;
             Timer.Instance.StartTimer();
-            initialBallRb.isKinematic = false;
-            initialBallRb.AddForce(new Vector2(0, initialBallSpeed));
+            _initialBallRb.isKinematic = false;
+            _initialBallRb.AddForce(new Vector2(0, initialBallSpeed));
             GameManager.Instance.IsGameRunning = true;
         }
     }
@@ -60,11 +62,11 @@ public class BallManager : MonoBehaviour
     {
         Vector3 paddlePosition = Paddle.Instance.gameObject.transform.position;
         Vector3 startingPosition = new Vector3(paddlePosition.x, paddlePosition.y + initialBallSpacingToPaddle, 0);
-        initialBall = Instantiate(ballPrefab, startingPosition, Quaternion.identity);
-        initialBallRb = initialBall.GetComponent<Rigidbody2D>();
+        _initialBall = Instantiate(ballPrefab, startingPosition, Quaternion.identity);
+        _initialBallRb = _initialBall.GetComponent<Rigidbody2D>();
         this.Balls = new List<Ball>()
         {
-            initialBall
+            _initialBall
         };
     }
 
