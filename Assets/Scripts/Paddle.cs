@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utils;
 using Vector3 = UnityEngine.Vector3;
 
 public class Paddle : MonoBehaviour
@@ -42,6 +43,13 @@ public class Paddle : MonoBehaviour
     private void Update()
     {
         AdaptBoxColliderToSpriteSize();
+
+        if (GameManager.Instance.GameState != GameState.GameRunning &&
+            GameManager.Instance.GameState != GameState.ReadyToPlay)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {

@@ -35,7 +35,17 @@ public class GameManager : MonoBehaviour
     public int Lives { get; set; }
     public int Score { get; set; }
     public int VolatileScore { get; set; }
-    public GameState GameState { get; set; }
+    private GameState _gameState;
+
+    public GameState GameState
+    {
+        get => _gameState;
+        set
+        {
+            Debug.Log("GameState was changed to: " + value);
+            _gameState = value;
+        }
+    }
     private GameObject _gameOverCanvas;
 
     private void Start()

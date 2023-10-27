@@ -78,4 +78,13 @@ public class BallManager : MonoBehaviour
 
         this.InitBall();
     }
+
+    public void FreezeBalls()
+    {
+        foreach (var ball in this.Balls.ToList())
+        {
+            var rb = ball.GetComponent<Rigidbody2D>();
+            rb.velocity = Vector2.zero;
+        }
+    }
 }

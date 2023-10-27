@@ -34,7 +34,7 @@ public class BrickManager : MonoBehaviour
         if (bricksAlive <= 0  && GameManager.Instance.GameState == GameState.GameRunning)
         {
             GameManager.Instance.GameState = GameState.Win;
-            BallManager.Instance.ResetBalls();
+            BallManager.Instance.FreezeBalls();
             if (_levelPassedInstance == null)
             {
                 _levelPassedInstance = Instantiate(LevelPassedCanvasPrefab);
