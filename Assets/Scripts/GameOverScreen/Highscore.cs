@@ -8,6 +8,7 @@ namespace GameOverScreen
     {
         private TextMeshProUGUI _highScoreText;
         [SerializeField] private TextMeshProUGUI highscoreErrorText;
+        [SerializeField] private TextMeshProUGUI newHighscoreText;
 
         private void Start()
         {
@@ -22,6 +23,7 @@ namespace GameOverScreen
 
             if (highscore is null || currentScore > highscore)
             {
+                newHighscoreText.GetComponent<ShowText>()?.Show();
                 try
                 {
                     SaveHighscore(currentScore);
