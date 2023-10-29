@@ -46,16 +46,6 @@ namespace GameOverScreen
             _highScoreText.text = $"Highscore: {displayHighscore}";
         }
 
-        public static int? GetHighscore()
-        {
-            if (PlayerPrefs.HasKey("Highscore"))
-            {
-                return PlayerPrefs.GetInt("Highscore");
-            }
-
-            return null;
-        }
-
         private void SaveHighscore(int highscore)
         {
             try
@@ -67,6 +57,22 @@ namespace GameOverScreen
                 highscoreErrorText.GetComponent<ShowText>()?.Show();
                 throw;
             }
+        }
+        
+        private static int? GetHighscore()
+        {
+            if (PlayerPrefs.HasKey("Highscore"))
+            {
+                return PlayerPrefs.GetInt("Highscore");
+            }
+
+            return null;
+        }
+
+        public static string GetDisplayHighscore()
+        {
+            var highscore = Highscore.GetHighscore();
+            return highscore.HasValue ? highscore.Value.ToString("D5") : "00000";
         }
     }
 }
