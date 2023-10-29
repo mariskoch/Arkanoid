@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace GameOverScreen
+namespace Utils
 {
     public class ShowText : MonoBehaviour
     {

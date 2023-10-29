@@ -1,6 +1,6 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
+using Utils;
 
 namespace GameOverScreen
 {
@@ -46,7 +46,7 @@ namespace GameOverScreen
             _highScoreText.text = $"Highscore: {displayHighscore}";
         }
 
-        private int? GetHighscore()
+        public static int? GetHighscore()
         {
             if (PlayerPrefs.HasKey("Highscore"))
             {
