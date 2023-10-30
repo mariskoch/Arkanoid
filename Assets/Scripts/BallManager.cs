@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using GameEssentials.Paddle;
 using UnityEngine;
 using Utils;
 
@@ -25,12 +26,14 @@ public class BallManager : MonoBehaviour
 
     #endregion
 
-    public Ball ballPrefab;
-    public float initialBallSpacingToPaddle = 0.4f;
-    public float initialBallSpeed = 8.0f;
+    public float BallSpeed { get; private set; } = 8.0f;
+    public List<Ball> Balls { get; private set; }
+    
+    [SerializeField] private float initialBallSpacingToPaddle = 0.4f;
+    [SerializeField] private Ball ballPrefab;
+    
     private Ball _initialBall;
     private Rigidbody2D _initialBallRb;
-    public List<Ball> Balls { get; set; }
 
     private void Start()
     {
@@ -42,7 +45,7 @@ public class BallManager : MonoBehaviour
         // moving the ball with the paddle before game starts
         if (GameManager.Instance.GameState == GameState.ReadyToPlay && _initialBall != null)
         {
-            Vector3 paddlePosition = Paddle.Instance.gameObject.transform.position;
+            var paddlePosition = NewPaddleMovement.Instance.gameObject.transform.position;
             _initialBall.transform.position =
                 new Vector3(paddlePosition.x, paddlePosition.y + initialBallSpacingToPaddle, 0);
         }
@@ -53,17 +56,17 @@ public class BallManager : MonoBehaviour
             GameManager.Instance.GameState = GameState.GameRunning;
             Timer.Instance.StartTimer();
             _initialBallRb.isKinematic = false;
-            _initialBallRb.velocity = new Vector2(0, initialBallSpeed);
+            _initialBallRb.velocity = new Vector2(0, BallSpeed);
         }
     }
 
     private void InitBall()
     {
-        Vector3 paddlePosition = Paddle.Instance.gameObject.transform.position;
-        Vector3 startingPosition = new Vector3(paddlePosition.x, paddlePosition.y + initialBallSpacingToPaddle, 0);
+        var paddlePosition = NewPaddleMovement.Instance.gameObject.transform.position;
+        var startingPosition = new Vector3(paddlePosition.x, paddlePosition.y + initialBallSpacingToPaddle, 0);
         _initialBall = Instantiate(ballPrefab, startingPosition, Quaternion.identity);
         _initialBallRb = _initialBall.GetComponent<Rigidbody2D>();
-        this.Balls = new List<Ball>()
+        Balls = new List<Ball>()
         {
             _initialBall
         };
@@ -71,7 +74,7 @@ public class BallManager : MonoBehaviour
 
     public void ResetBalls()
     {
-        foreach (var ball in this.Balls.ToList())
+        foreach (var ball in Balls.ToList())
         {
             Destroy(ball.gameObject);
         }
@@ -81,7 +84,7 @@ public class BallManager : MonoBehaviour
 
     public void FreezeBalls()
     {
-        foreach (var ball in this.Balls.ToList())
+        foreach (var ball in Balls.ToList())
         {
             var rb = ball.GetComponent<Rigidbody2D>();
             rb.velocity = Vector2.zero;

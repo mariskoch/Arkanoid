@@ -6,6 +6,8 @@ namespace GameEssentials.Paddle
 {
     public class NewPaddleMovement : MonoBehaviour
     {
+        public static NewPaddleMovement Instance => _instance;
+        
         [SerializeField] private float paddleSpeed = 6.5f;
         [SerializeField] private float deflectionStrengthInXDirection = 1.0f;
 
@@ -14,6 +16,7 @@ namespace GameEssentials.Paddle
         private Rigidbody2D _rb;
         private SpriteRenderer _sr;
         private BoxCollider2D _bc;
+        private static NewPaddleMovement _instance;
 
         private void Awake()
         {
@@ -21,6 +24,15 @@ namespace GameEssentials.Paddle
             _rb = GetComponent<Rigidbody2D>();
             _sr = GetComponent<SpriteRenderer>();
             _bc = GetComponent<BoxCollider2D>();
+            
+            if (_instance != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _instance = this;
+            }
         }
 
         private void OnEnable()
@@ -39,7 +51,9 @@ namespace GameEssentials.Paddle
 
         private void FixedUpdate()
         {
-            AdaptBoxColliderToSpriteSize();
+            // TODO: reactivate box collider adaption to sprite renderer size
+            // Logs @ AppData\LocalLow\DefaultCompany\Arkanoid
+            // AdaptBoxColliderToSpriteSize();
 
             if (GameManager.Instance.GameState != GameState.GameRunning &&
                 GameManager.Instance.GameState != GameState.ReadyToPlay)
@@ -70,7 +84,7 @@ namespace GameEssentials.Paddle
                 var paddleCenter = new Vector2(paddlePosition.x, paddlePosition.y);
                 ballRb.velocity =
                     new Vector2((hitPoint.x - paddleCenter.x) * deflectionStrengthInXDirection, 1).normalized *
-                    BallManager.Instance.initialBallSpeed;
+                    BallManager.Instance.BallSpeed;
             }
         }
 
