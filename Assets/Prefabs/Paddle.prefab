@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7690764838329279503}
   - component: {fileID: 843772277031619172}
   - component: {fileID: 7596791024327833105}
+  - component: {fileID: 7609944478955757888}
   - component: {fileID: 4832241697873983959}
   m_Layer: 0
   m_Name: Paddle
@@ -139,13 +140,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1711212072020714747}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16129e6054d8ba24a958307c038b9dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   paddleSpeed: 6.5
   deflectionStrength: 400
+--- !u!114 &7609944478955757888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711212072020714747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8f03e5f45d4b3b9916188946f38731, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paddleSpeed: 6.5
+  deflectionStrengthInXDirection: 1
 --- !u!50 &4832241697873983959
 Rigidbody2D:
   serializedVersion: 4

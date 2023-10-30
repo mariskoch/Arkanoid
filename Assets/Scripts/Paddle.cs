@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Utils;
 using Vector3 = UnityEngine.Vector3;
 
@@ -84,10 +82,10 @@ public class Paddle : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Ball"))
         {
-            Rigidbody2D ballRb = col.gameObject.GetComponent<Rigidbody2D>();
-            Vector3 hitPoint = col.contacts[0].point;
-            Vector3 paddlePosition = this.gameObject.transform.position;
-            Vector3 paddleCenter = new Vector3(paddlePosition.x, paddlePosition.y, 0);
+            var ballRb = col.gameObject.GetComponent<Rigidbody2D>();
+            var hitPoint = col.contacts[0].point;
+            var paddlePosition = gameObject.transform.position;
+            var paddleCenter = new Vector2(paddlePosition.x, paddlePosition.y);
 
             ballRb.velocity = Vector2.zero;
             ballRb.AddForce(new Vector2((hitPoint.x - paddleCenter.x) * deflectionStrength,

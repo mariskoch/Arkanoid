@@ -129,4 +129,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 452708553783261548, guid: a2aa47557607f274aab21f8f5266e6e3, type: 3}
   initialBallSpacingToPaddle: 0.4
-  initialBallSpeed: 400
+  initialBallSpeed: 8

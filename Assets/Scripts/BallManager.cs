@@ -26,8 +26,8 @@ public class BallManager : MonoBehaviour
     #endregion
 
     public Ball ballPrefab;
-    public float initialBallSpacingToPaddle;
-    public float initialBallSpeed;
+    public float initialBallSpacingToPaddle = 0.4f;
+    public float initialBallSpeed = 8.0f;
     private Ball _initialBall;
     private Rigidbody2D _initialBallRb;
     public List<Ball> Balls { get; set; }
@@ -53,7 +53,7 @@ public class BallManager : MonoBehaviour
             GameManager.Instance.GameState = GameState.GameRunning;
             Timer.Instance.StartTimer();
             _initialBallRb.isKinematic = false;
-            _initialBallRb.AddForce(new Vector2(0, initialBallSpeed));
+            _initialBallRb.velocity = new Vector2(0, initialBallSpeed);
         }
     }
 
