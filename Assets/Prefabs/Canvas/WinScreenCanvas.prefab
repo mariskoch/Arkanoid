@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 3186204509642282308}
   - component: {fileID: 1039569600044473957}
   m_Layer: 5
-  m_Name: WinScreen
+  m_Name: WinScreenCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
