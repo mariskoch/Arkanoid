@@ -53,8 +53,8 @@ namespace GameEssentials.Paddle
         {
             // TODO: reactivate box collider adaption to sprite renderer size
             // Logs @ AppData\LocalLow\DefaultCompany\Arkanoid
-            // AdaptBoxColliderToSpriteSize();
-
+            AdaptBoxColliderToSpriteSize();
+            
             if (GameManager.Instance.GameState != GameState.GameRunning &&
                 GameManager.Instance.GameState != GameState.ReadyToPlay)
             {
