@@ -1,19 +1,30 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameEssentials.Paddle;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Utils;
 
 public class BallManager : MonoBehaviour
 {
-    #region Singleton
-
-    private static BallManager _instance;
-
     public static BallManager Instance => _instance;
+    public float BallSpeed { get; private set; } = 8.0f;
+    public List<Ball> Balls { get; private set; }
+    
+    [SerializeField] private float initialBallSpacingToPaddle = 0.4f;
+    [SerializeField] private Ball ballPrefab;
+    
+    private Ball _initialBall;
+    private Rigidbody2D _initialBallRb;
+    private Movement _movement;
+    private bool _isStartButtonPressed;
+    private static BallManager _instance;
 
     private void Awake()
     {
+        _movement = new Movement();
+        
         if (_instance != null)
         {
             Destroy(gameObject);
@@ -23,21 +34,29 @@ public class BallManager : MonoBehaviour
             _instance = this;
         }
     }
-
-    #endregion
-
-    public float BallSpeed { get; private set; } = 8.0f;
-    public List<Ball> Balls { get; private set; }
     
-    [SerializeField] private float initialBallSpacingToPaddle = 0.4f;
-    [SerializeField] private Ball ballPrefab;
-    
-    private Ball _initialBall;
-    private Rigidbody2D _initialBallRb;
-
     private void Start()
     {
         InitBall();
+    }
+
+    private void OnEnable()
+    {
+        _movement.Player.StartGame.Enable();
+        _movement.Player.StartGame.performed += InputActionHandler;
+        _movement.Player.StartGame.canceled += InputActionHandler;
+    }
+
+    private void OnDisable()
+    {
+        _movement.Player.StartGame.performed -= InputActionHandler;
+        _movement.Player.StartGame.canceled -= InputActionHandler;
+        _movement.Player.StartGame.Disable();
+    }
+    
+    private void InputActionHandler(InputAction.CallbackContext ctx)
+    {
+        _isStartButtonPressed = ctx.ReadValueAsButton();
     }
 
     private void Update()
@@ -51,7 +70,7 @@ public class BallManager : MonoBehaviour
         }
 
         // starting the game by pressing space
-        if (GameManager.Instance.GameState == GameState.ReadyToPlay && Input.GetKeyDown(KeyCode.Space))
+        if (GameManager.Instance.GameState == GameState.ReadyToPlay && _isStartButtonPressed)
         {
             GameManager.Instance.GameState = GameState.GameRunning;
             Timer.Instance.StartTimer();

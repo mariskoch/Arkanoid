@@ -4,10 +4,9 @@ using Utils;
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField] private float verticalSupportThreshold = 0.5f;
-    [SerializeField] private float supportImpulse = 0.5f;
+    [SerializeField] private float verticalSupportThresholdAndSupport = 1.5f;
     private Rigidbody2D _rb;
-    
+
     public static event Action<Ball> OnBallDeath;
 
     private void Start()
@@ -19,10 +18,11 @@ public class Ball : MonoBehaviour
     {
         if (GameManager.Instance.GameState != GameState.GameRunning) return;
         var velocity = _rb.velocity;
-        if (Math.Abs(velocity.y) <= verticalSupportThreshold)
+        if (Math.Abs(velocity.y) <= verticalSupportThresholdAndSupport)
         {
             var isMovingUp = velocity.y > 0;
-            _rb.velocity = new Vector2(velocity.x, isMovingUp ? supportImpulse : -supportImpulse);
+            _rb.velocity = new Vector2(velocity.x,
+                isMovingUp ? verticalSupportThresholdAndSupport : -verticalSupportThresholdAndSupport);
         }
     }
 
@@ -32,4 +32,3 @@ public class Ball : MonoBehaviour
         Destroy(gameObject, 1);
     }
 }
-

@@ -37,16 +37,16 @@ namespace GameEssentials.Paddle
 
         private void OnEnable()
         {
-            _movement.Player.Enable();
-            _movement.Player.Movement.performed += InputActionPerformed;
-            _movement.Player.Movement.canceled += InputActionCancelled;
+            _movement.Player.Movement.Enable();
+            _movement.Player.Movement.performed += InputActionHandler;
+            _movement.Player.Movement.canceled += InputActionHandler;
         }
 
         private void OnDisable()
         {
-            _movement.Player.Movement.performed -= InputActionPerformed;
-            _movement.Player.Movement.canceled -= InputActionCancelled;
-            _movement.Player.Disable();
+            _movement.Player.Movement.performed -= InputActionHandler;
+            _movement.Player.Movement.canceled -= InputActionHandler;
+            _movement.Player.Movement.Disable();
         }
 
         private void FixedUpdate()
@@ -86,14 +86,9 @@ namespace GameEssentials.Paddle
             }
         }
 
-        private void InputActionPerformed(InputAction.CallbackContext ctx)
+        private void InputActionHandler(InputAction.CallbackContext ctx)
         {
-            _input = _movement.Player.Movement.ReadValue<float>();
-        }
-
-        private void InputActionCancelled(InputAction.CallbackContext ctx)
-        {
-            _input = _movement.Player.Movement.ReadValue<float>();
+            _input = ctx.ReadValue<float>();
         }
     }
 }
