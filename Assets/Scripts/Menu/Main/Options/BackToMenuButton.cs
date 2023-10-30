@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Menu.Options
+namespace Menu.Main.Options
 {
     public class BackToMenuButton : MonoBehaviour
     {

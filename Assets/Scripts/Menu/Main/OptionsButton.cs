@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Menu
+namespace Menu.Main
 {
     public class OptionsButton : MonoBehaviour
     {

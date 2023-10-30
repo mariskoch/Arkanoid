@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Menu
+namespace Menu.Main
 {
     public class ShowHighscore : MonoBehaviour
     {

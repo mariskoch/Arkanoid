@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Menu
+namespace Menu.Main
 {
     public class MenuManager : MonoBehaviour
     {

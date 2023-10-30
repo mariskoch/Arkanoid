@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils;
 
-namespace Menu
+namespace Menu.Main
 {
     public class PlayButton : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils;
 
-public class MainMenu : MonoBehaviour
+public class MainMenuButton : MonoBehaviour
 {
     private Button _mainMenuButton;
 

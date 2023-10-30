@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    #region Singleton
-
-    private static UIManager _instance;
-
     public static UIManager Instance => _instance;
+
+    private TextMeshProUGUI _livesText;
+    private TextMeshProUGUI _scoreText;
+    private TextMeshProUGUI _volatileScore;
+    private static UIManager _instance;
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        _livesText = GameObject.Find("Lives").GetComponent<TextMeshProUGUI>();
+        _scoreText = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
+        _volatileScore = GameObject.Find("VScore").GetComponent<TextMeshProUGUI>();
 
         if (_instance != null)
         {
@@ -24,17 +27,10 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    #endregion
-
-    public TextMeshProUGUI livesText;
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI volatileScore;
-
     private void Start()
     {
-        livesText = GameObject.Find("Lives").GetComponent<TextMeshProUGUI>();
-        scoreText = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
-        volatileScore = GameObject.Find("VScore").GetComponent<TextMeshProUGUI>();
+        SetLives(GameManager.Instance.Lives);
+        SetScore(GameManager.Instance.Score);
         
         GameManager.Instance.OnLiveReduction += SetLives;
         Brick.OnBrickDestruction += UpdateScore;
@@ -49,7 +45,7 @@ public class UIManager : MonoBehaviour
     public void SetLives(int lives)
     {
         var displayString = $"Lives:{Environment.NewLine}{lives}";
-        livesText.text = displayString;
+        _livesText.text = displayString;
     }
 
     private void UpdateScore(Brick brick)
@@ -63,7 +59,7 @@ public class UIManager : MonoBehaviour
     {
         var displayNumber = vScore.ToString("D5");
         var displayString = $"+{displayNumber}";
-        volatileScore.text = displayString;
+        _volatileScore.text = displayString;
     }
 
     public void SetScore(int score)
@@ -71,11 +67,11 @@ public class UIManager : MonoBehaviour
         // GameManager.Instance.Score += GameManager.Instance.VolatileScore;
         var displayNumber = score.ToString("D5");
         var displayString = $"Score:{Environment.NewLine}{displayNumber}";
-        scoreText.text = displayString;
+        _scoreText.text = displayString;
         GameManager.Instance.VolatileScore = 0;
         // ResetScore();
     }
-    
+
     public void ResetScore()
     {
         SetScore(0);
