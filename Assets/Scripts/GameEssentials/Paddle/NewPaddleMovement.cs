@@ -21,9 +21,9 @@ namespace GameEssentials.Paddle
         private void Awake()
         {
             _movement = new Movement();
-            _rb = GetComponent<Rigidbody2D>();
-            _sr = GetComponent<SpriteRenderer>();
-            _bc = GetComponent<BoxCollider2D>();
+            _rb = this.GetComponent<Rigidbody2D>();
+            _sr = this.GetComponent<SpriteRenderer>();
+            _bc = this.GetComponent<BoxCollider2D>();
             
             if (_instance != null)
             {
@@ -51,8 +51,6 @@ namespace GameEssentials.Paddle
 
         private void FixedUpdate()
         {
-            // TODO: reactivate box collider adaption to sprite renderer size
-            // Logs @ AppData\LocalLow\DefaultCompany\Arkanoid
             AdaptBoxColliderToSpriteSize();
             
             if (GameManager.Instance.GameState != GameState.GameRunning &&
@@ -80,7 +78,7 @@ namespace GameEssentials.Paddle
             {
                 var ballRb = col.gameObject.GetComponent<Rigidbody2D>();
                 var hitPoint = col.contacts[0].point;
-                var paddlePosition = gameObject.transform.position;
+                var paddlePosition = this.gameObject.transform.position;
                 var paddleCenter = new Vector2(paddlePosition.x, paddlePosition.y);
                 ballRb.velocity =
                     new Vector2((hitPoint.x - paddleCenter.x) * deflectionStrengthInXDirection, 1).normalized *
