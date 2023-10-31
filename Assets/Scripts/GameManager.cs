@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
         Ball.OnBallDeath += OnBallDeath;
     }
 
+    /*
     // TODO: Remove
     private void Update()
     {
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
             LoadNextLevel();
         }
     }
+    */
 
     private void OnBallDeath(Ball ball)
     {

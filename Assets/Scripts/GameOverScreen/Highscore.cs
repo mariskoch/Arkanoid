@@ -31,6 +31,7 @@ namespace GameOverScreen
                 }
                 catch (PlayerPrefsException e)
                 {
+                    highscoreErrorText.GetComponent<ShowText>()?.Show();
                     ShowHighscore(highscore ?? 0);
                 }
             }
@@ -46,7 +47,7 @@ namespace GameOverScreen
             _highScoreText.text = $"Highscore: {displayHighscore}";
         }
 
-        private void SaveHighscore(int highscore)
+        public static void SaveHighscore(int highscore)
         {
             try
             {
@@ -54,12 +55,12 @@ namespace GameOverScreen
             }
             catch (PlayerPrefsException e)
             {
-                highscoreErrorText.GetComponent<ShowText>()?.Show();
+                Debug.Log(e);
                 throw;
             }
         }
         
-        private static int? GetHighscore()
+        public static int? GetHighscore()
         {
             if (PlayerPrefs.HasKey("Highscore"))
             {

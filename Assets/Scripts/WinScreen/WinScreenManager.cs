@@ -1,4 +1,5 @@
 ﻿using System;
+using GameOverScreen;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +20,6 @@ namespace WinScreen
                 levelPassedText.text = "Level passed! That was the last level.";
                 GameObject obj = Instantiate(showScore, transform.position, Quaternion.identity);
                 obj.transform.parent = transform.parent;
-                // obj.transform.position = Vector3.zero;
             }
         }
     }

@@ -22,6 +22,7 @@ public class Brick : MonoBehaviour
         OriginalHitPoints = hitPoints;
     }
 
+    /*
     // TODO: Remove, was for testing
     private void Update()
     {
@@ -34,6 +35,7 @@ public class Brick : MonoBehaviour
             }
         }
     }
+    */
 
     private void OnCollisionEnter2D(Collision2D col)
     {
