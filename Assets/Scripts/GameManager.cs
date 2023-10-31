@@ -49,6 +49,20 @@ public class GameManager : MonoBehaviour
         Ball.OnBallDeath += OnBallDeath;
     }
 
+    // TODO: Remove
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K) && (GameState == GameState.ReadyToPlay || GameState == GameState.GameRunning))
+        {
+            PlayerPrefs.SetInt("Highscore", 0);
+        }
+        if (Input.GetKeyDown(KeyCode.L) && (GameState == GameState.ReadyToPlay || GameState == GameState.GameRunning))
+        {
+            currentLevel = availableLevels - 1;
+            LoadNextLevel();
+        }
+    }
+
     private void OnBallDeath(Ball ball)
     {
         if (BallManager.Instance.Balls.Count <= 0)

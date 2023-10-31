@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 
-public class WinScreen : MonoBehaviour
+public class NextLevelButton : MonoBehaviour
 {
     private Button _nextLevelButton;
 

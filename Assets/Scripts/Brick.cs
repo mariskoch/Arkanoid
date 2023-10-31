@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Utils;
 
 public class Brick : MonoBehaviour
 {
@@ -19,6 +20,19 @@ public class Brick : MonoBehaviour
         BrickManager.Instance.bricksAlive++;
 
         OriginalHitPoints = hitPoints;
+    }
+
+    // TODO: Remove, was for testing
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J) && (GameManager.Instance.GameState == GameState.ReadyToPlay ||
+                                            GameManager.Instance.GameState == GameState.GameRunning))
+        {
+            for (int i = 0; i < hitPoints; i++)
+            {
+                HandleReduceLife();
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D col)
