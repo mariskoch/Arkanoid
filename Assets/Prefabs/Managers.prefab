@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprites:
-  - {fileID: 21300000, guid: 0c96ba8756fd73d4caf08eec2c060bce, type: 3}
-  - {fileID: 21300000, guid: 3ac9a1fd190649542a5686f545275ce0, type: 3}
-  - {fileID: 21300000, guid: f00f3da5173e3d84b8fe113c9254f1e3, type: 3}
+  - {fileID: 21300000, guid: 187ab56432021a74786efb0972a56808, type: 3}
+  - {fileID: 21300000, guid: 187ab56432021a74786efb0972a56808, type: 3}
+  - {fileID: 21300000, guid: 187ab56432021a74786efb0972a56808, type: 3}
   LevelPassedCanvasPrefab: {fileID: 3958783792093816184, guid: c07e653a43d3b7448b2cade9c2f7c1a2, type: 3}
   bricksAlive: 0
 --- !u!1 &3101629878301648933
@@ -95,7 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50cfe41d720032243a72ca70926c0211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  livesScoreCanvas: {fileID: 2509890934863018109}
 --- !u!1 &6504829518483866276
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,10 +275,5 @@ PrefabInstance:
 --- !u!224 &2191361636579830028 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5044754136943064691, guid: 44b0c929cdc51954d976185a119e6e2f, type: 3}
-  m_PrefabInstance: {fileID: 6371422375093608319}
-  m_PrefabAsset: {fileID: 0}
---- !u!223 &2509890934863018109 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 8844852399854429954, guid: 44b0c929cdc51954d976185a119e6e2f, type: 3}
   m_PrefabInstance: {fileID: 6371422375093608319}
   m_PrefabAsset: {fileID: 0}
