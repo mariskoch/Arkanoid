@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprites:
-  - {fileID: 21300000, guid: a15d7769b84484f4aad063e9954db9ff, type: 3}
-  - {fileID: 21300000, guid: 9664b5e097af4e34cb3efa402cfcf358, type: 3}
-  - {fileID: 21300000, guid: d33d6712127c4e24cb0be2428e846622, type: 3}
+  - {fileID: 21300000, guid: 9c7f67ab3cce70d40bcdfc363214b473, type: 3}
+  - {fileID: 21300000, guid: faa49073f5d0f0a449803e603f141100, type: 3}
+  - {fileID: 21300000, guid: c1f40c9b2f035d84f8338d517b9dbb3e, type: 3}
   LevelPassedCanvasPrefab: {fileID: 3958783792093816184, guid: c07e653a43d3b7448b2cade9c2f7c1a2, type: 3}
   bricksAlive: 0
 --- !u!1 &3101629878301648933
