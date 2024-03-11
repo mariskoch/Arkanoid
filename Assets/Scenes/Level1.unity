@@ -473,7 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 1
-  availableLevels: 7
+  availableLevels: 6
   availableLives: 5
   gameOverScreenPrefab: {fileID: 5466376808556150789, guid: 1ec3a644bc2d78c4c9439bddad8a6356, type: 3}
 --- !u!4 &2064878863
