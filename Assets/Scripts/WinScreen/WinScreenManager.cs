@@ -18,7 +18,8 @@ namespace WinScreen
             {
                 nextLevelButton.gameObject.SetActive(false);
                 levelPassedText.text = "Level passed! That was the last level.";
-                GameObject obj = Instantiate(showScore, transform.position, Quaternion.identity);
+                var tr = transform.position;
+                GameObject obj = Instantiate(showScore, new Vector3(tr.x, tr.y + 45, tr.z), Quaternion.identity);
                 obj.transform.parent = transform.parent;
             }
         }
