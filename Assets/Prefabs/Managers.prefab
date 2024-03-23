@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e294b6f1c7c5041996c529258d0ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpRate: 1
+  powerUpRate: 0.75
   powerUps:
   - {fileID: 3257170342139987629, guid: b2f195f41c92c3c4bb6d073ef32cb15b, type: 3}
   - {fileID: 8854329044868914942, guid: 03f7ec29c712d534a9d4b5ff22f7a0d2, type: 3}

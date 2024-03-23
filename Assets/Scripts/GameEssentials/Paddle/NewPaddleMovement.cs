@@ -13,8 +13,6 @@ namespace GameEssentials.Paddle
         
         [SerializeField] private float paddleSpeed = 6.5f;
         [SerializeField] private float deflectionStrengthInXDirection = 1.0f;
-        [SerializeField] private float transformDuration = 5.0f;
-        [SerializeField] private float transformSpeed = 10.0f;
          
         private float _paddleDefaultWidth;
         private float _paddleDefaultHeight;
@@ -97,14 +95,14 @@ namespace GameEssentials.Paddle
             }
         }
 
-        public void ChangePaddleSize(float width)
+        public void ChangePaddleSize(float width, float duration, float transformSpeed)
         {
             if (Mathf.Approximately(_paddleDefaultWidth, width)) return;
-            StartCoroutine(AnimatePaddleToWidth(width));
-            StartCoroutine(ResetPaddleAfterTime(transformDuration));
+            StartCoroutine(AnimatePaddleToWidth(width, transformSpeed));
+            StartCoroutine(ResetPaddleAfterTime(duration, transformSpeed));
         }
 
-        private IEnumerator AnimatePaddleToWidth(float width)
+        private IEnumerator AnimatePaddleToWidth(float width, float transformSpeed)
         {
             isTransforming = true;
             
@@ -131,10 +129,10 @@ namespace GameEssentials.Paddle
             isTransforming = false;
         }
 
-        private IEnumerator ResetPaddleAfterTime(float duration)
+        private IEnumerator ResetPaddleAfterTime(float duration, float transformSpeed)
         {
             yield return new WaitForSeconds(duration);
-            StartCoroutine(AnimatePaddleToWidth(_paddleDefaultWidth));
+            StartCoroutine(AnimatePaddleToWidth(_paddleDefaultWidth, transformSpeed));
         }
 
         private void InputActionHandler(InputAction.CallbackContext ctx)
