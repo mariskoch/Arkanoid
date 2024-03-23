@@ -50,6 +50,53 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c1f40c9b2f035d84f8338d517b9dbb3e, type: 3}
   LevelPassedCanvasPrefab: {fileID: 3958783792093816184, guid: c07e653a43d3b7448b2cade9c2f7c1a2, type: 3}
   bricksAlive: 0
+--- !u!1 &3054691468756533127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4479378341321363542}
+  - component: {fileID: 8791489887881644656}
+  m_Layer: 0
+  m_Name: PowerUpManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4479378341321363542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3054691468756533127}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5545959647988445849}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8791489887881644656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3054691468756533127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e294b6f1c7c5041996c529258d0ca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpRate: 1
+  powerUps:
+  - {fileID: 3257170342139987629, guid: b2f195f41c92c3c4bb6d073ef32cb15b, type: 3}
 --- !u!1 &3101629878301648933
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +174,7 @@ Transform:
   - {fileID: 5718454587305030880}
   - {fileID: 2614620421680773948}
   - {fileID: 4680719928389945820}
+  - {fileID: 4479378341321363542}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6910212971890232803
