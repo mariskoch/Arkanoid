@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace PowerUps
@@ -19,6 +20,18 @@ namespace PowerUps
             }
         }
 
+        private void OnEnable()
+        {
+            GameManager.OnGameOver += HandleGameOver;
+            BrickManager.OnLevelPassed += HandleGameOver;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.OnGameOver -= HandleGameOver;
+            BrickManager.OnLevelPassed -= HandleGameOver;
+        }
+
         private void Awake()
         {
             _rb = this.GetComponent<Rigidbody2D>();
@@ -31,5 +44,11 @@ namespace PowerUps
         }
 
         protected abstract void ApplyPowerUp();
+
+        private void HandleGameOver()
+        {
+            _rb.velocity = Vector2.zero;
+            _rb.isKinematic = true;
+        }
     }
 }

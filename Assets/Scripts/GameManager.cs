@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public int availableLives = 2;
     public GameObject gameOverScreenPrefab;
     public event Action<int> OnLiveReduction;
+    public static event Action OnGameOver;
     public int Lives { get; set; }
     public int Score { get; set; }
     public int VolatileScore { get; set; }
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviour
             if (this.Lives <= 0)
             {
                 GameState = GameState.GameOver;
+                OnGameOver?.Invoke();
                 ShowGameOverScreen();
                 Timer.Instance.StopTimer();
             }

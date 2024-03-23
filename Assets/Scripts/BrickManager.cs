@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Utils;
 
@@ -25,6 +26,7 @@ public class BrickManager : MonoBehaviour
 
     public Sprite[] Sprites;
     public GameObject LevelPassedCanvasPrefab;
+    public static event Action OnLevelPassed;
     private GameObject _levelPassedInstance;
     
     [HideInInspector] public int bricksAlive = 0;
@@ -34,6 +36,7 @@ public class BrickManager : MonoBehaviour
         if (bricksAlive <= 0  && GameManager.Instance.GameState == GameState.GameRunning)
         {
             GameManager.Instance.GameState = GameState.Win;
+            OnLevelPassed?.Invoke();
             BallManager.Instance.FreezeBalls();
             if (_levelPassedInstance == null)
             {
