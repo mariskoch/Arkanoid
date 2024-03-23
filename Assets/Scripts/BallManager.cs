@@ -5,6 +5,7 @@ using GameEssentials.Paddle;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
+using Random = System.Random;
 
 public class BallManager : MonoBehaviour
 {
@@ -89,6 +90,19 @@ public class BallManager : MonoBehaviour
         {
             _initialBall
         };
+    }
+
+    public void SpawnBalls(Vector3 position, int amount)
+    {
+        for (var i = 0; i < amount; i++)
+        {
+            var spawned = Instantiate(ballPrefab, position, Quaternion.identity);
+            var spawnedRb = spawned.GetComponent<Rigidbody2D>();
+            spawnedRb.isKinematic = false;
+            var random = new Random();
+            spawnedRb.velocity = new Vector2((float) random.NextDouble(), (float) random.NextDouble()).normalized * BallSpeed;
+            Balls.Add(spawned);
+        }
     }
 
     public void ResetBalls()
