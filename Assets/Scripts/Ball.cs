@@ -12,6 +12,8 @@ public class Ball : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        this.gameObject.layer = LayerMask.NameToLayer("NoCollisionBallLayer");
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("NoCollisionBallLayer"), LayerMask.NameToLayer("NoCollisionBallLayer"), true);
     }
 
     private void Update()
