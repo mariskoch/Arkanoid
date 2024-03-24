@@ -23,6 +23,7 @@ namespace GameEssentials.Paddle
         private static NewPaddleMovement _instance;
         private float _remainingTransformDuration = 0.0f;
         private bool _isUntransformed = true;
+        private bool _isTransformationGrowth = false;
 
         private void Awake()
         {
@@ -101,6 +102,21 @@ namespace GameEssentials.Paddle
             var currentWidth = _sr.size.x;
             if (Mathf.Approximately(currentWidth, targetWidth) && !_isUntransformed && !isTransforming)
             {
+                Debug.Log("Case 1:");
+                Debug.Log("Before: " + _remainingTransformDuration);
+                _remainingTransformDuration += duration;
+                Debug.Log("After: " + _remainingTransformDuration);
+                return;
+            } else if (!_isUntransformed && isTransforming && _isTransformationGrowth && targetWidth > paddleDefaultWidth)
+            {
+                Debug.Log("Case 2:");
+                Debug.Log("Before: " + _remainingTransformDuration);
+                _remainingTransformDuration += duration;
+                Debug.Log("After: " + _remainingTransformDuration);
+                return;
+            } else if (!_isUntransformed && isTransforming && !_isTransformationGrowth && targetWidth < paddleDefaultWidth)
+            {
+                Debug.Log("Case 3:");
                 Debug.Log("Before: " + _remainingTransformDuration);
                 _remainingTransformDuration += duration;
                 Debug.Log("After: " + _remainingTransformDuration);
@@ -114,6 +130,7 @@ namespace GameEssentials.Paddle
         {
             isTransforming = true;
             if (!Mathf.Approximately(width, paddleDefaultWidth)) _isUntransformed = false;
+            if (width > paddleDefaultWidth) _isTransformationGrowth = true;
             
             var currentWidth = this._sr.size.x;
             
@@ -138,6 +155,7 @@ namespace GameEssentials.Paddle
                 }   
             }
             isTransforming = false;
+            _isTransformationGrowth = false;
             if (Mathf.Approximately(width, paddleDefaultWidth))
             {
                 _remainingTransformDuration = 0.0f;
