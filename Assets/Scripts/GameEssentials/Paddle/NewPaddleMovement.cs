@@ -121,6 +121,16 @@ namespace GameEssentials.Paddle
                 _remainingTransformDuration += duration;
                 Debug.Log("After: " + _remainingTransformDuration);
                 return;
+            } else if (!_isUntransformed && !isTransforming && currentWidth > paddleDefaultWidth && targetWidth < paddleDefaultWidth)
+            {
+                StartCoroutine(AnimatePaddleToWidth(targetWidth, transformSpeed));
+                _remainingTransformDuration = duration;
+                return;
+            } else if (!_isUntransformed && !isTransforming && currentWidth < paddleDefaultWidth && targetWidth > paddleDefaultWidth)
+            {
+                StartCoroutine(AnimatePaddleToWidth(targetWidth, transformSpeed));
+                _remainingTransformDuration = duration;
+                return;
             }
             StartCoroutine(AnimatePaddleToWidth(targetWidth, transformSpeed));
             StartCoroutine(ResetPaddleAfterTime(duration, transformSpeed));
