@@ -13,8 +13,8 @@ namespace PowerUps
         {
             if (NewPaddleMovement.Instance == null) return;
             
-            var currentSize = NewPaddleMovement.Instance.paddleDefaultWidth;
-            NewPaddleMovement.Instance.ChangePaddleSize(currentSize * sizeMultiplier, transformMaintainDurationInSeconds, transformSpeed);
+            var defaultSize = NewPaddleMovement.Instance.paddleDefaultWidth;
+            NewPaddleMovement.Instance.ChangePaddleSize(defaultSize * sizeMultiplier, transformMaintainDurationInSeconds, transformSpeed);
         }
     }
 }

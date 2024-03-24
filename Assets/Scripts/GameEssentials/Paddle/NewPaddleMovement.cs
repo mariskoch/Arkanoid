@@ -8,7 +8,6 @@ namespace GameEssentials.Paddle
     public class NewPaddleMovement : MonoBehaviour
     {
         public static NewPaddleMovement Instance => _instance;
-        public bool isTransforming { get; private set; } = false;
         public float paddleDefaultWidth { get; private set; }
         
         [SerializeField] private float paddleSpeed = 6.5f;
@@ -22,6 +21,7 @@ namespace GameEssentials.Paddle
         private BoxCollider2D _bc;
         private static NewPaddleMovement _instance;
         private float _remainingTransformDuration = 0.0f;
+        private bool _isTransforming  = false;
         private bool _isUntransformed = true;
         private bool _isTransformationGrowth = false;
         private float _dynamicTransformationTargetWidth;
@@ -102,63 +102,60 @@ namespace GameEssentials.Paddle
         public void ChangePaddleSize(float targetWidth, float duration, float transformSpeed)
         {
             var currentWidth = _sr.size.x;
-            if (Mathf.Approximately(currentWidth, targetWidth) && !_isUntransformed && !isTransforming)
+
+            // The paddle is either small or large and the newly picked up PowerUp is corresponding to the current state
+            bool case1 = Mathf.Approximately(currentWidth, targetWidth) && !_isUntransformed && !_isTransforming;
+            
+            // The paddle is growing and another grow PowerUp is picked up
+            bool case2 = !_isUntransformed && _isTransforming && _isTransformationGrowth &&
+                         targetWidth > paddleDefaultWidth;
+            
+            // The paddle is shrinking and another shrink PowerUp is picked up
+            bool case3 = !_isUntransformed && _isTransforming && !_isTransformationGrowth &&
+                         targetWidth < paddleDefaultWidth;
+            
+            // The paddle is large and a shrinking PowerUp is picked up
+            bool case4 = !_isUntransformed && !_isTransforming && currentWidth > paddleDefaultWidth &&
+                         targetWidth < paddleDefaultWidth;
+            
+            // The paddle is small and a growing PowerUp is picked up
+            bool case5 = !_isUntransformed && !_isTransforming && currentWidth < paddleDefaultWidth &&
+                         targetWidth > paddleDefaultWidth;
+            
+            // The paddle is growing and a shrinking PowerUp is picked up
+            bool case6 = !_isUntransformed && _isTransforming && _isTransformationGrowth &&
+                         targetWidth < paddleDefaultWidth;
+            
+            // The paddle is shrinking and a growing PowerUp is picked up
+            bool case7 = !_isUntransformed && _isTransforming && !_isTransformationGrowth &&
+                         targetWidth > paddleDefaultWidth;
+
+            if (case1 || case2 || case3)
             {
-                Debug.Log("Case 1:");
-                Debug.Log("Before: " + _remainingTransformDuration);
                 _remainingTransformDuration += duration;
-                Debug.Log("After: " + _remainingTransformDuration);
-                return;
-            } else if (!_isUntransformed && isTransforming && _isTransformationGrowth && targetWidth > paddleDefaultWidth)
-            {
-                Debug.Log("Case 2:");
-                Debug.Log(_isTransformationGrowth);
-                Debug.Log("Before: " + _remainingTransformDuration);
-                _remainingTransformDuration += duration;
-                Debug.Log("After: " + _remainingTransformDuration);
-                return;
-            } else if (!_isUntransformed && isTransforming && !_isTransformationGrowth && targetWidth < paddleDefaultWidth)
-            {
-                Debug.Log("Case 3:");
-                Debug.Log("Before: " + _remainingTransformDuration);
-                _remainingTransformDuration += duration;
-                Debug.Log("After: " + _remainingTransformDuration);
-                return;
-            } else if (!_isUntransformed && !isTransforming && currentWidth > paddleDefaultWidth && targetWidth < paddleDefaultWidth)
+            } else if (case4 || case5)
             {
                 _dynamicTransformationTargetWidth = targetWidth;
                 StartCoroutine(AnimatePaddleToWidth(transformSpeed));
                 _remainingTransformDuration = duration;
-                return;
-            } else if (!_isUntransformed && !isTransforming && currentWidth < paddleDefaultWidth && targetWidth > paddleDefaultWidth)
+            } else if (case6 || case7)
             {
                 _dynamicTransformationTargetWidth = targetWidth;
-                StartCoroutine(AnimatePaddleToWidth(transformSpeed));
                 _remainingTransformDuration = duration;
-                return;
-            } else if (!_isUntransformed && isTransforming && _isTransformationGrowth && targetWidth < paddleDefaultWidth)
-            {
-                Debug.Log("Schrumpf Call");
-                _dynamicTransformationTargetWidth = targetWidth;
-                _remainingTransformDuration = duration;
-                return;
-            } else if (!_isUntransformed && isTransforming && !_isTransformationGrowth && targetWidth > paddleDefaultWidth)
-            {
-                Debug.Log("Grow Call");
-                _dynamicTransformationTargetWidth = targetWidth;
-                _remainingTransformDuration = duration;
-                return;
             }
-            _dynamicTransformationTargetWidth = targetWidth;
-            StartCoroutine(AnimatePaddleToWidth(transformSpeed));
-            StartCoroutine(ResetPaddleAfterTime(duration, transformSpeed));
+            else
+            {
+                // This case is used, when no PowerUp is active and the paddle is at its normal size
+                _dynamicTransformationTargetWidth = targetWidth;
+                StartCoroutine(AnimatePaddleToWidth(transformSpeed));
+                StartCoroutine(ResetPaddleAfterTime(duration, transformSpeed));
+            }
         }
 
         private IEnumerator AnimatePaddleToWidth(float transformSpeed)
         {
-            isTransforming = true;
+            _isTransforming = true;
             if (!Mathf.Approximately(_dynamicTransformationTargetWidth, paddleDefaultWidth)) _isUntransformed = false;
-            
             
             var currentWidth = this._sr.size.x;
             
@@ -170,7 +167,7 @@ namespace GameEssentials.Paddle
                 _sr.size = new Vector2(currentWidth, _paddleDefaultHeight);
                 yield return null;
             }
-            isTransforming = false;
+            _isTransforming = false;
             _isTransformationGrowth = false;
             if (Mathf.Approximately(currentWidth, paddleDefaultWidth))
             {
@@ -181,8 +178,6 @@ namespace GameEssentials.Paddle
 
         private IEnumerator ResetPaddleAfterTime(float duration, float transformSpeed)
         {
-            // yield return new WaitForSeconds(duration);
-            
             _remainingTransformDuration = duration;
             while (_remainingTransformDuration > 0.0f)
             {
