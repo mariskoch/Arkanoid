@@ -24,6 +24,7 @@ namespace GameEssentials.Paddle
         private float _remainingTransformDuration = 0.0f;
         private bool _isUntransformed = true;
         private bool _isTransformationGrowth = false;
+        private float _dynamicTransformationTargetWidth;
 
         private void Awake()
         {
@@ -35,6 +36,7 @@ namespace GameEssentials.Paddle
             var srSize = _sr.size;
             paddleDefaultWidth = srSize.x;
             _paddleDefaultHeight = srSize.y;
+            _dynamicTransformationTargetWidth = paddleDefaultWidth;
             
             if (_instance != null)
             {
@@ -110,6 +112,7 @@ namespace GameEssentials.Paddle
             } else if (!_isUntransformed && isTransforming && _isTransformationGrowth && targetWidth > paddleDefaultWidth)
             {
                 Debug.Log("Case 2:");
+                Debug.Log(_isTransformationGrowth);
                 Debug.Log("Before: " + _remainingTransformDuration);
                 _remainingTransformDuration += duration;
                 Debug.Log("After: " + _remainingTransformDuration);
@@ -123,50 +126,53 @@ namespace GameEssentials.Paddle
                 return;
             } else if (!_isUntransformed && !isTransforming && currentWidth > paddleDefaultWidth && targetWidth < paddleDefaultWidth)
             {
-                StartCoroutine(AnimatePaddleToWidth(targetWidth, transformSpeed));
+                _dynamicTransformationTargetWidth = targetWidth;
+                StartCoroutine(AnimatePaddleToWidth(transformSpeed));
                 _remainingTransformDuration = duration;
                 return;
             } else if (!_isUntransformed && !isTransforming && currentWidth < paddleDefaultWidth && targetWidth > paddleDefaultWidth)
             {
-                StartCoroutine(AnimatePaddleToWidth(targetWidth, transformSpeed));
+                _dynamicTransformationTargetWidth = targetWidth;
+                StartCoroutine(AnimatePaddleToWidth(transformSpeed));
+                _remainingTransformDuration = duration;
+                return;
+            } else if (!_isUntransformed && isTransforming && _isTransformationGrowth && targetWidth < paddleDefaultWidth)
+            {
+                Debug.Log("Schrumpf Call");
+                _dynamicTransformationTargetWidth = targetWidth;
+                _remainingTransformDuration = duration;
+                return;
+            } else if (!_isUntransformed && isTransforming && !_isTransformationGrowth && targetWidth > paddleDefaultWidth)
+            {
+                Debug.Log("Grow Call");
+                _dynamicTransformationTargetWidth = targetWidth;
                 _remainingTransformDuration = duration;
                 return;
             }
-            StartCoroutine(AnimatePaddleToWidth(targetWidth, transformSpeed));
+            _dynamicTransformationTargetWidth = targetWidth;
+            StartCoroutine(AnimatePaddleToWidth(transformSpeed));
             StartCoroutine(ResetPaddleAfterTime(duration, transformSpeed));
         }
 
-        private IEnumerator AnimatePaddleToWidth(float width, float transformSpeed)
+        private IEnumerator AnimatePaddleToWidth(float transformSpeed)
         {
             isTransforming = true;
-            if (!Mathf.Approximately(width, paddleDefaultWidth)) _isUntransformed = false;
-            if (width > paddleDefaultWidth) _isTransformationGrowth = true;
+            if (!Mathf.Approximately(_dynamicTransformationTargetWidth, paddleDefaultWidth)) _isUntransformed = false;
+            
             
             var currentWidth = this._sr.size.x;
             
-            if (currentWidth > width)
+            while (!Mathf.Approximately(currentWidth, _dynamicTransformationTargetWidth))
             {
-                while (currentWidth > width)
-                {
-                    currentWidth -= Time.deltaTime * transformSpeed;
-                    if (currentWidth < width) currentWidth = width;
-                    _sr.size = new Vector2(currentWidth, _paddleDefaultHeight);
-                    yield return null;
-                }
-            }
-            else
-            {
-                while (currentWidth < width)
-                {
-                    currentWidth += Time.deltaTime * transformSpeed;
-                    if (currentWidth > width) currentWidth = width;
-                    _sr.size = new Vector2(currentWidth, _paddleDefaultHeight);
-                    yield return null;
-                }   
+                if (_dynamicTransformationTargetWidth > paddleDefaultWidth) _isTransformationGrowth = true;
+                else if (_dynamicTransformationTargetWidth < paddleDefaultWidth) _isTransformationGrowth = false;
+                currentWidth = Mathf.MoveTowards(currentWidth, _dynamicTransformationTargetWidth, Time.deltaTime * transformSpeed);
+                _sr.size = new Vector2(currentWidth, _paddleDefaultHeight);
+                yield return null;
             }
             isTransforming = false;
             _isTransformationGrowth = false;
-            if (Mathf.Approximately(width, paddleDefaultWidth))
+            if (Mathf.Approximately(currentWidth, paddleDefaultWidth))
             {
                 _remainingTransformDuration = 0.0f;
                 _isUntransformed = true;
@@ -184,7 +190,8 @@ namespace GameEssentials.Paddle
                 yield return null;
             }
             
-            StartCoroutine(AnimatePaddleToWidth(paddleDefaultWidth, transformSpeed));
+            _dynamicTransformationTargetWidth = paddleDefaultWidth;
+            StartCoroutine(AnimatePaddleToWidth(transformSpeed));
         }
 
         private void InputActionHandler(InputAction.CallbackContext ctx)
