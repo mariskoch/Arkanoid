@@ -6,7 +6,10 @@ namespace Managers
 {
     public class PauseManager : MonoBehaviour
     {
+        [SerializeField] private GameObject pauseScreenPrefab;
+        
         private Movement _movement;
+        private static GameObject _pauseScreenInstance;
 
         private void Awake()
         {
@@ -38,12 +41,15 @@ namespace Managers
         {
             GameManager.Instance.GameState = GameState.Paused;
             Time.timeScale = 0;
+            _pauseScreenInstance = Instantiate(pauseScreenPrefab);
         }
 
-        private void ResumeGame()
+        public static void ResumeGame()
         {
+            if (GameManager.Instance.GameState != GameState.Paused) return;
             GameManager.Instance.GameState = GameState.GameRunning;
             Time.timeScale = 1;
+            Destroy(_pauseScreenInstance);
         }
     }
 }

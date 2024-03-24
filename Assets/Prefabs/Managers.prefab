@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469e9e2b700d4d8d8b3e9148db37f533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseScreenPrefab: {fileID: 8540424277816521790, guid: 286a55095ce4a0a4697e133b4062f9e8, type: 3}
 --- !u!1 &6504829518483866276
 GameObject:
   m_ObjectHideFlags: 0
