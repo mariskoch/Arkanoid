@@ -11,11 +11,10 @@ namespace PowerUps
         
         protected override void ApplyPowerUp()
         {
-            if (NewPaddleMovement.Instance != null && !NewPaddleMovement.Instance.isTransforming)
-            {
-                var currentSize = NewPaddleMovement.Instance.paddleDefaultWidth;
-                NewPaddleMovement.Instance.ChangePaddleSize(currentSize * sizeMultiplier, transformMaintainDurationInSeconds, transformSpeed);
-            }
+            if (NewPaddleMovement.Instance == null) return;
+            
+            var currentSize = NewPaddleMovement.Instance.paddleDefaultWidth;
+            NewPaddleMovement.Instance.ChangePaddleSize(currentSize * sizeMultiplier, transformMaintainDurationInSeconds, transformSpeed);
         }
     }
 }

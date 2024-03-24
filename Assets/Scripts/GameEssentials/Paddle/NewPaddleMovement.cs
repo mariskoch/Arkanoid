@@ -21,6 +21,8 @@ namespace GameEssentials.Paddle
         private SpriteRenderer _sr;
         private BoxCollider2D _bc;
         private static NewPaddleMovement _instance;
+        private float _remainingTransformDuration = 0.0f;
+        private bool _isUntransformed = true;
 
         private void Awake()
         {
@@ -97,7 +99,13 @@ namespace GameEssentials.Paddle
         public void ChangePaddleSize(float targetWidth, float duration, float transformSpeed)
         {
             var currentWidth = _sr.size.x;
-            if (Mathf.Approximately(currentWidth, targetWidth)) return;
+            if (Mathf.Approximately(currentWidth, targetWidth) && !_isUntransformed && !isTransforming)
+            {
+                Debug.Log("Before: " + _remainingTransformDuration);
+                _remainingTransformDuration += duration;
+                Debug.Log("After: " + _remainingTransformDuration);
+                return;
+            }
             StartCoroutine(AnimatePaddleToWidth(targetWidth, transformSpeed));
             StartCoroutine(ResetPaddleAfterTime(duration, transformSpeed));
         }
@@ -105,6 +113,7 @@ namespace GameEssentials.Paddle
         private IEnumerator AnimatePaddleToWidth(float width, float transformSpeed)
         {
             isTransforming = true;
+            if (!Mathf.Approximately(width, paddleDefaultWidth)) _isUntransformed = false;
             
             var currentWidth = this._sr.size.x;
             
@@ -129,11 +138,24 @@ namespace GameEssentials.Paddle
                 }   
             }
             isTransforming = false;
+            if (Mathf.Approximately(width, paddleDefaultWidth))
+            {
+                _remainingTransformDuration = 0.0f;
+                _isUntransformed = true;
+            }
         }
 
         private IEnumerator ResetPaddleAfterTime(float duration, float transformSpeed)
         {
-            yield return new WaitForSeconds(duration);
+            // yield return new WaitForSeconds(duration);
+            
+            _remainingTransformDuration = duration;
+            while (_remainingTransformDuration > 0.0f)
+            {
+                _remainingTransformDuration -= Time.deltaTime;
+                yield return null;
+            }
+            
             StartCoroutine(AnimatePaddleToWidth(paddleDefaultWidth, transformSpeed));
         }
 
