@@ -21,6 +21,7 @@ public class MainMenuButton : MonoBehaviour
                 Highscore.SaveHighscore(GameManager.Instance.Score);
             }
 
+            Time.timeScale = 1;
             GameManager.Instance.GameState = GameState.Menu;
             GameManager.Instance.ResetLives();
             GameManager.Instance.currentLevel = 1;

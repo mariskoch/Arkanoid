@@ -7,5 +7,6 @@
         GameRunning,
         Win,
         GameOver,
+        Paused,
     }
 }
