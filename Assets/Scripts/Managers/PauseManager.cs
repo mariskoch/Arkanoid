@@ -27,10 +27,23 @@ namespace Managers
 
         private void HandlePause(InputAction.CallbackContext ctx)
         {
-            var isPressed = ctx.ReadValueAsButton();
-            if (!isPressed || GameManager.Instance.GameState != GameState.GameRunning) return;
-            
-            
+            bool isPressed = ctx.ReadValueAsButton();
+            if (!isPressed) return;
+
+            if (GameManager.Instance.GameState == GameState.GameRunning) PauseGame();
+            else if (GameManager.Instance.GameState == GameState.Paused) ResumeGame();
+        }
+        
+        private void PauseGame()
+        {
+            GameManager.Instance.GameState = GameState.Paused;
+            Time.timeScale = 0;
+        }
+
+        private void ResumeGame()
+        {
+            GameManager.Instance.GameState = GameState.GameRunning;
+            Time.timeScale = 1;
         }
     }
 }
