@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using Utils;
 
 namespace GameEssentials.Paddle
@@ -10,11 +9,11 @@ namespace GameEssentials.Paddle
     {
         public static NewPaddleMovement Instance => _instance;
         public bool isTransforming { get; private set; } = false;
+        public float paddleDefaultWidth { get; private set; }
         
         [SerializeField] private float paddleSpeed = 6.5f;
         [SerializeField] private float deflectionStrengthInXDirection = 1.0f;
-         
-        private float _paddleDefaultWidth;
+
         private float _paddleDefaultHeight;
         private float _input;
         private Movement _movement;
@@ -31,7 +30,7 @@ namespace GameEssentials.Paddle
             _bc = this.GetComponent<BoxCollider2D>();
 
             var srSize = _sr.size;
-            _paddleDefaultWidth = srSize.x;
+            paddleDefaultWidth = srSize.x;
             _paddleDefaultHeight = srSize.y;
             
             if (_instance != null)
@@ -95,10 +94,11 @@ namespace GameEssentials.Paddle
             }
         }
 
-        public void ChangePaddleSize(float width, float duration, float transformSpeed)
+        public void ChangePaddleSize(float targetWidth, float duration, float transformSpeed)
         {
-            if (Mathf.Approximately(_paddleDefaultWidth, width)) return;
-            StartCoroutine(AnimatePaddleToWidth(width, transformSpeed));
+            var currentWidth = _sr.size.x;
+            if (Mathf.Approximately(currentWidth, targetWidth)) return;
+            StartCoroutine(AnimatePaddleToWidth(targetWidth, transformSpeed));
             StartCoroutine(ResetPaddleAfterTime(duration, transformSpeed));
         }
 
@@ -113,6 +113,7 @@ namespace GameEssentials.Paddle
                 while (currentWidth > width)
                 {
                     currentWidth -= Time.deltaTime * transformSpeed;
+                    if (currentWidth < width) currentWidth = width;
                     _sr.size = new Vector2(currentWidth, _paddleDefaultHeight);
                     yield return null;
                 }
@@ -122,6 +123,7 @@ namespace GameEssentials.Paddle
                 while (currentWidth < width)
                 {
                     currentWidth += Time.deltaTime * transformSpeed;
+                    if (currentWidth > width) currentWidth = width;
                     _sr.size = new Vector2(currentWidth, _paddleDefaultHeight);
                     yield return null;
                 }   
@@ -132,7 +134,7 @@ namespace GameEssentials.Paddle
         private IEnumerator ResetPaddleAfterTime(float duration, float transformSpeed)
         {
             yield return new WaitForSeconds(duration);
-            StartCoroutine(AnimatePaddleToWidth(_paddleDefaultWidth, transformSpeed));
+            StartCoroutine(AnimatePaddleToWidth(paddleDefaultWidth, transformSpeed));
         }
 
         private void InputActionHandler(InputAction.CallbackContext ctx)

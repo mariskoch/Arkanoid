@@ -73,12 +73,12 @@ SpriteRenderer:
   m_SortingLayerID: 2144807247
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b980c85e8154694439d07217913cdd03, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 959a8f35a6092b7459e97c4fefcb8a27, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.1, y: 0.1}
+  m_Size: {x: 0.2, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -95,9 +95,9 @@ GameObject:
   - component: {fileID: 6570390874008830064}
   - component: {fileID: 3914051184477559199}
   - component: {fileID: 3239739620546816310}
-  - component: {fileID: 38409505303301835}
+  - component: {fileID: 7759692807921400964}
   m_Layer: 0
-  m_Name: LargePaddle
+  m_Name: SmallPaddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,7 +181,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25
---- !u!114 &38409505303301835
+--- !u!114 &7759692807921400964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,6 +193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd4af99f00f516a45ab5d156681a044c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeMultiplier: 2
+  sizeMultiplier: 0.5
   transformMaintainDurationInSeconds: 5
   transformSpeed: 10
