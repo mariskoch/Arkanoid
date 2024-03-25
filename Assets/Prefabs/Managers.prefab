@@ -49,7 +49,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: faa49073f5d0f0a449803e603f141100, type: 3}
   - {fileID: 21300000, guid: c1f40c9b2f035d84f8338d517b9dbb3e, type: 3}
   LevelPassedCanvasPrefab: {fileID: 3958783792093816184, guid: c07e653a43d3b7448b2cade9c2f7c1a2, type: 3}
-  bricksAlive: 0
+  aliveBrickIDs: 
 --- !u!1 &3054691468756533127
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,6 +99,7 @@ MonoBehaviour:
   - {fileID: 3257170342139987629, guid: b2f195f41c92c3c4bb6d073ef32cb15b, type: 3}
   - {fileID: 8854329044868914942, guid: 03f7ec29c712d534a9d4b5ff22f7a0d2, type: 3}
   - {fileID: 8854329044868914942, guid: a63dd0a0d2eb28b42a289cdaa01ca5d0, type: 3}
+  - {fileID: 3257170342139987629, guid: 85c78f7c8e26c4548b612e10968cc483, type: 3}
 --- !u!1 &3101629878301648933
 GameObject:
   m_ObjectHideFlags: 0
