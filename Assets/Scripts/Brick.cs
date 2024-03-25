@@ -17,25 +17,10 @@ public class Brick : MonoBehaviour
         _sr = this.gameObject.GetComponent<SpriteRenderer>();
         this._sr.sprite = BrickManager.Instance.Sprites[this.hitPoints - 1];
 
-        BrickManager.Instance.bricksAlive++;
+        BrickManager.Instance.aliveBrickIDs.Add(GetInstanceID());
 
         OriginalHitPoints = hitPoints;
     }
-
-    /*
-    // TODO: Remove, was for testing
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.J) && (GameManager.Instance.GameState == GameState.ReadyToPlay ||
-                                            GameManager.Instance.GameState == GameState.GameRunning))
-        {
-            for (int i = 0; i < hitPoints; i++)
-            {
-                HandleReduceLife();
-            }
-        }
-    }
-    */
 
     private void OnCollisionEnter2D(Collision2D col)
     {
@@ -53,7 +38,7 @@ public class Brick : MonoBehaviour
         {
             OnBrickDestruction?.Invoke(this);
             SpawnDestroyEffect();
-            BrickManager.Instance.bricksAlive--;
+            BrickManager.Instance.aliveBrickIDs.Remove(GetInstanceID());
             Destroy(this.gameObject);
         }
         else
