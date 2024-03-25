@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     private GameState _gameState;
     public GameState GameState { get; set; }
     private GameObject _gameOverCanvas;
+    private float _remainingSlowDuration = 0.0f;
 
     private void Start()
     {
@@ -131,5 +133,37 @@ public class GameManager : MonoBehaviour
         Timer.Instance.ResetTimer();
         currentLevel++;
         SceneManager.LoadScene("Level" + currentLevel);
+    }
+
+    public void ChangeGameSpeedForDuration(float speed, float duration)
+    {
+        if (Mathf.Approximately(Time.timeScale, speed) && _remainingSlowDuration > 0.0f)
+        {
+            _remainingSlowDuration += duration;
+            return;
+        } else if (!Mathf.Approximately(Time.timeScale, speed) && _remainingSlowDuration > 0.0f)
+        {
+            ChangeGameToSpeed(speed);
+            _remainingSlowDuration = duration;
+            return;
+        }
+        ChangeGameToSpeed(speed);
+        StartCoroutine(ResetSpeedAfterTime(duration));
+    }
+    
+    private void ChangeGameToSpeed(float speed)
+    {
+        Time.timeScale = speed;
+    }
+
+    private IEnumerator ResetSpeedAfterTime(float delay)
+    {
+        _remainingSlowDuration = delay;
+        while (!Mathf.Approximately(_remainingSlowDuration, 0.0f))
+        {
+            _remainingSlowDuration = Mathf.MoveTowards(_remainingSlowDuration, 0.0f, Time.deltaTime);
+            yield return null;
+        }
+        ChangeGameToSpeed(1.0f);
     }
 }
