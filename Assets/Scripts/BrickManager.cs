@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 
@@ -29,11 +30,11 @@ public class BrickManager : MonoBehaviour
     public static event Action OnLevelPassed;
     private GameObject _levelPassedInstance;
     
-    [HideInInspector] public int bricksAlive = 0;
+    [HideInInspector] public List<int> aliveBrickIDs = new List<int>();
 
     private void Update()
     {
-        if (bricksAlive <= 0  && GameManager.Instance.GameState == GameState.GameRunning)
+        if (aliveBrickIDs.Count <= 0  && GameManager.Instance.GameState == GameState.GameRunning)
         {
             GameManager.Instance.GameState = GameState.Win;
             OnLevelPassed?.Invoke();
