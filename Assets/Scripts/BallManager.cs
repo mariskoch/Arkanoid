@@ -19,7 +19,6 @@ public class BallManager : MonoBehaviour
     private Ball _initialBall;
     private Rigidbody2D _initialBallRb;
     private Movement _movement;
-    private bool _isStartButtonPressed;
     private static BallManager _instance;
 
     private void Awake()
@@ -45,19 +44,23 @@ public class BallManager : MonoBehaviour
     {
         _movement.Player.StartGame.Enable();
         _movement.Player.StartGame.performed += InputActionHandler;
-        _movement.Player.StartGame.canceled += InputActionHandler;
     }
 
     private void OnDisable()
     {
         _movement.Player.StartGame.performed -= InputActionHandler;
-        _movement.Player.StartGame.canceled -= InputActionHandler;
         _movement.Player.StartGame.Disable();
     }
     
     private void InputActionHandler(InputAction.CallbackContext ctx)
     {
-        _isStartButtonPressed = ctx.ReadValueAsButton();
+        if (GameManager.Instance.GameState == GameState.ReadyToPlay)
+        {
+            GameManager.Instance.GameState = GameState.GameRunning;
+            Timer.Instance.StartTimer();
+            _initialBallRb.isKinematic = false;
+            _initialBallRb.velocity = new Vector2(0, BallSpeed);
+        }
     }
 
     private void Update()
@@ -68,15 +71,6 @@ public class BallManager : MonoBehaviour
             var paddlePosition = NewPaddleMovement.Instance.gameObject.transform.position;
             _initialBall.transform.position =
                 new Vector3(paddlePosition.x, paddlePosition.y + initialBallSpacingToPaddle, 0);
-        }
-
-        // starting the game by pressing space
-        if (GameManager.Instance.GameState == GameState.ReadyToPlay && _isStartButtonPressed)
-        {
-            GameManager.Instance.GameState = GameState.GameRunning;
-            Timer.Instance.StartTimer();
-            _initialBallRb.isKinematic = false;
-            _initialBallRb.velocity = new Vector2(0, BallSpeed);
         }
     }
 
