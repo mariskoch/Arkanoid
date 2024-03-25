@@ -49,9 +49,9 @@ public class GameManager : MonoBehaviour
         Score = 0;
         Ball.OnBallDeath += OnBallDeath;
     }
-
+    
+    // TODO: Remove - for debugging only
     /*
-    // TODO: Remove
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K) && (GameState == GameState.ReadyToPlay || GameState == GameState.GameRunning))
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         }
     }
     */
-
+    
     private void OnBallDeath(Ball ball)
     {
         if (BallManager.Instance.Balls.Count <= 0)
