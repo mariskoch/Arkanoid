@@ -141,7 +141,16 @@ namespace GameEssentials.Paddle
             } else if (case6 || case7)
             {
                 _dynamicTransformationTargetWidth = targetWidth;
-                _remainingTransformDuration = duration;
+                
+                // this is for the case, when a grown paddle shrinks back to normal and in that process picks up another grow power up
+                if (Mathf.Approximately(_remainingTransformDuration, 0.0f))
+                {
+                    StartCoroutine(ResetPaddleAfterTime(duration, transformSpeed));
+                }
+                else
+                {
+                    _remainingTransformDuration = duration;   
+                }
             }
             else
             {
@@ -184,7 +193,8 @@ namespace GameEssentials.Paddle
                 _remainingTransformDuration -= Time.deltaTime;
                 yield return null;
             }
-            
+
+            _remainingTransformDuration = 0.0f;
             _dynamicTransformationTargetWidth = paddleDefaultWidth;
             StartCoroutine(AnimatePaddleToWidth(transformSpeed));
         }
