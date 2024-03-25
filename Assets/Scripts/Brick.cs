@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utils;
 
 public class Brick : MonoBehaviour
@@ -10,6 +11,7 @@ public class Brick : MonoBehaviour
 
     public static event Action<Brick> OnBrickDestruction;
 
+    [SerializeField] private ParticleSystem.MinMaxGradient animationColor;
     private SpriteRenderer _sr;
 
     private void Start()
@@ -53,7 +55,7 @@ public class Brick : MonoBehaviour
         GameObject effect = Instantiate(destroyAnimation.gameObject, brickPos, Quaternion.identity);
 
         ParticleSystem.MainModule mm = effect.GetComponent<ParticleSystem>().main;
-        mm.startColor = this._sr.color;
+        mm.startColor = animationColor;
         Destroy(effect, destroyAnimation.main.startLifetime.constant);
     }
 }
