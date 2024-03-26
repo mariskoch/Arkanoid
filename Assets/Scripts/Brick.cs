@@ -12,11 +12,15 @@ public class Brick : MonoBehaviour
     public static event Action<Brick> OnBrickDestruction;
 
     [SerializeField] private ParticleSystem.MinMaxGradient animationColor;
+    [SerializeField] private bool isUnbreakable = false;
     private SpriteRenderer _sr;
+    private BoxCollider2D _bc;
 
     private void Start()
     {
+        _bc = this.GetComponent<BoxCollider2D>();
         _sr = this.gameObject.GetComponent<SpriteRenderer>();
+        if (isUnbreakable) return;
         this._sr.sprite = BrickManager.Instance.Sprites[this.hitPoints - 1];
 
         BrickManager.Instance.aliveBrickIDs.Add(GetInstanceID());
@@ -24,9 +28,15 @@ public class Brick : MonoBehaviour
         OriginalHitPoints = hitPoints;
     }
 
+    private void Update()
+    {
+        if (!isUnbreakable) return;
+        _bc.size = _sr.size;
+    }
+
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("Ball"))
+        if (col.gameObject.CompareTag("Ball") && !isUnbreakable)
         {
             HandleReduceLife();
         }
