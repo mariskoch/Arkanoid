@@ -15,6 +15,7 @@ public class NextLevelButton : MonoBehaviour
         
         _nextLevelButton.onClick.AddListener(() =>
         {
+            GameManager.Instance.ResetGameSpeedImmediately();
             GameManager.Instance.GameState = GameState.ReadyToPlay;
             GameManager.Instance.LoadNextLevel();
         });
