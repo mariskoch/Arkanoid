@@ -53,7 +53,6 @@ public class GameManager : MonoBehaviour
     }
     
     // TODO: Remove - for debugging only
-    /*
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K) && (GameState == GameState.ReadyToPlay || GameState == GameState.GameRunning))
@@ -65,8 +64,12 @@ public class GameManager : MonoBehaviour
             currentLevel = availableLevels - 1;
             LoadNextLevel();
         }
+        if (Input.GetKeyDown(KeyCode.O) && (GameState == GameState.ReadyToPlay || GameState == GameState.GameRunning))
+        {
+            currentLevel = 3 - 1;
+            LoadNextLevel();
+        }
     }
-    */
     
     private void OnBallDeath(Ball ball)
     {
