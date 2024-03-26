@@ -166,4 +166,9 @@ public class GameManager : MonoBehaviour
         }
         ChangeGameToSpeed(1.0f);
     }
+
+    public void ResetGameSpeedImmediately()
+    {
+        _remainingSlowDuration = 0.0f;
+    }
 }
