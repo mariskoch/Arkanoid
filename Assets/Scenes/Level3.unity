@@ -180,6 +180,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 724c16d47c54c014db306f0b7f489cc7, type: 3}
+--- !u!1001 &180494485
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.679
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705974894193132516, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_Name
+      value: Brick - Unbreakable
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760359810710786784, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_Size.x
+      value: 0.507014
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
 --- !u!1001 &579684843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -237,6 +298,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e4fb756d6822384db4e7e97db9640e5, type: 3}
+--- !u!1001 &706660474
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.679
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.000000007450581
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434315801127648387, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705974894193132516, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_Name
+      value: Brick - Unbreakable (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760359810710786784, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
+      propertyPath: m_Size.x
+      value: 0.507014
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7f99d555c6e895147996ed4792cf06d7, type: 3}
 --- !u!1001 &889872111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1206,3 +1328,5 @@ SceneRoots:
   - {fileID: 892605181}
   - {fileID: 1303654097}
   - {fileID: 579684843}
+  - {fileID: 180494485}
+  - {fileID: 706660474}
