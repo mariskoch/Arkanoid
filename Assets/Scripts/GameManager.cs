@@ -65,6 +65,11 @@ public class GameManager : MonoBehaviour
             currentLevel = 3 - 1;
             LoadNextLevel();
         }
+        if (Input.GetKeyDown(KeyCode.O) && (GameState == GameState.ReadyToPlay || GameState == GameState.GameRunning))
+        {
+            currentLevel = 6 - 1;
+            LoadNextLevel();
+        }
     }
     
     
