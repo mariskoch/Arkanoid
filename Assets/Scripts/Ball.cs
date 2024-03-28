@@ -21,7 +21,7 @@ public class Ball : MonoBehaviour
 
     private void Update()
     {
-        // if (GameManager.Instance.GameState != GameState.GameRunning) return;
+        if (GameManager.Instance.GameState != GameState.GameRunning) return;
         var velocity = _rb.velocity;
         // ensure, that the ball can NOT go perfectly horizontal
         if (Math.Abs(velocity.y) <= verticalSupportThresholdAndSupport)
