@@ -9,6 +9,8 @@ TagManager:
   - Brick
   - Paddle
   - DeathBorder
+  - Background
+  - UnbreakableBrick
   layers:
   - Default
   - TransparentFX
