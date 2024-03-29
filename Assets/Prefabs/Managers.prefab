@@ -50,6 +50,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: faa49073f5d0f0a449803e603f141100, type: 3}
   - {fileID: 21300000, guid: c1f40c9b2f035d84f8338d517b9dbb3e, type: 3}
   LevelPassedCanvasPrefab: {fileID: 3958783792093816184, guid: c07e653a43d3b7448b2cade9c2f7c1a2, type: 3}
+  levelPassedSound: {fileID: 8300000, guid: 852de8a91789a9944829e16ac6008bdb, type: 3}
   aliveBrickIDs: 
 --- !u!82 &6021046250583667688
 AudioSource:
