@@ -1,10 +1,13 @@
 using System;
+using Managers;
 using UnityEngine;
 
 namespace PowerUps
 {
     public abstract class PowerUp : MonoBehaviour
     {
+        [SerializeField] private AudioClip audioClip;
+        
         private Rigidbody2D _rb;
 
         private void OnTriggerEnter2D(Collider2D coll)
@@ -12,6 +15,7 @@ namespace PowerUps
             if (coll.CompareTag("Paddle"))
             {
                 ApplyPowerUp();
+                if (audioClip != null) PowerUpManager.Instance.PlaySound(audioClip);
                 Destroy(this.gameObject);
             }
             else if (coll.CompareTag("DeathBorder"))
