@@ -13,6 +13,7 @@ public class BrickManager : MonoBehaviour
 
     private void Awake()
     {
+        _as = this.GetComponent<AudioSource>();
         if (_instance != null)
         {
             Destroy(gameObject);
@@ -29,9 +30,10 @@ public class BrickManager : MonoBehaviour
     public GameObject LevelPassedCanvasPrefab;
     public static event Action OnLevelPassed;
     private GameObject _levelPassedInstance;
+    private AudioSource _as;
     
     [HideInInspector] public List<int> aliveBrickIDs = new List<int>();
-
+    
     private void Update()
     {
         if (aliveBrickIDs.Count <= 0  && GameManager.Instance.GameState == GameState.GameRunning)
@@ -46,5 +48,10 @@ public class BrickManager : MonoBehaviour
                 Timer.Instance.StopTimer();
             }
         }
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        _as.PlayOneShot(clip);
     }
 }
