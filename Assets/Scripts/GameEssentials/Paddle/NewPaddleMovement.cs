@@ -19,6 +19,7 @@ namespace GameEssentials.Paddle
         private Rigidbody2D _rb;
         private SpriteRenderer _sr;
         private BoxCollider2D _bc;
+        private AudioSource _as;
         private static NewPaddleMovement _instance;
         private float _remainingTransformDuration = 0.0f;
         private bool _isTransforming  = false;
@@ -32,6 +33,7 @@ namespace GameEssentials.Paddle
             _rb = this.GetComponent<Rigidbody2D>();
             _sr = this.GetComponent<SpriteRenderer>();
             _bc = this.GetComponent<BoxCollider2D>();
+            _as = this.GetComponent<AudioSource>();
 
             var srSize = _sr.size;
             paddleDefaultWidth = srSize.x;
@@ -96,6 +98,10 @@ namespace GameEssentials.Paddle
                 ballRb.velocity =
                     new Vector2((hitPoint.x - paddleCenter.x) * deflectionStrengthInXDirection, 1).normalized *
                     BallManager.Instance.BallSpeed;
+                if (_as.clip != null)
+                {
+                    _as.PlayOneShot(_as.clip);
+                }
             }
         }
 
