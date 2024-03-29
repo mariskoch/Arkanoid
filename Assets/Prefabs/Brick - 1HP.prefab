@@ -209,3 +209,5 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     m_ColorMin: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMax: {r: 0, g: 0.6879034, b: 1, a: 1}
+  isUnbreakable: 0
+  audioClip: {fileID: 8300000, guid: 51164677cb4104448ab4c4c29f433164, type: 3}

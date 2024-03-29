@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utils;
 
 public class BrickManager : MonoBehaviour
@@ -13,6 +14,7 @@ public class BrickManager : MonoBehaviour
 
     private void Awake()
     {
+        _as = this.GetComponent<AudioSource>();
         if (_instance != null)
         {
             Destroy(gameObject);
@@ -29,9 +31,12 @@ public class BrickManager : MonoBehaviour
     public GameObject LevelPassedCanvasPrefab;
     public static event Action OnLevelPassed;
     private GameObject _levelPassedInstance;
+    private AudioSource _as;
+
+    [SerializeField] private AudioClip levelPassedSound;
     
     [HideInInspector] public List<int> aliveBrickIDs = new List<int>();
-
+    
     private void Update()
     {
         if (aliveBrickIDs.Count <= 0  && GameManager.Instance.GameState == GameState.GameRunning)
@@ -39,6 +44,7 @@ public class BrickManager : MonoBehaviour
             GameManager.Instance.GameState = GameState.Win;
             OnLevelPassed?.Invoke();
             BallManager.Instance.FreezeBalls();
+            if (levelPassedSound != null) PlaySound(levelPassedSound);
             if (_levelPassedInstance == null)
             {
                 _levelPassedInstance = Instantiate(LevelPassedCanvasPrefab);
@@ -46,5 +52,10 @@ public class BrickManager : MonoBehaviour
                 Timer.Instance.StopTimer();
             }
         }
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        _as.PlayOneShot(clip);
     }
 }

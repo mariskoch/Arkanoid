@@ -13,6 +13,7 @@ public class Brick : MonoBehaviour
 
     [SerializeField] private ParticleSystem.MinMaxGradient animationColor;
     [SerializeField] private bool isUnbreakable = false;
+    [SerializeField] private AudioClip audioClip;
     private SpriteRenderer _sr;
     private BoxCollider2D _bc;
 
@@ -36,7 +37,9 @@ public class Brick : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("Ball") && !isUnbreakable)
+        if (!col.gameObject.CompareTag("Ball")) return;
+        BrickManager.Instance.PlaySound(audioClip);
+        if (!isUnbreakable)
         {
             HandleReduceLife();
         }

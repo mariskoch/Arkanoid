@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+        _as = this.GetComponent<AudioSource>();
 
         if (_instance != null)
         {
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [HideInInspector] public int currentLevel = 1;
+    [SerializeField] private AudioClip gameOverSound;
     public int availableLevels = 2;
     public int availableLives = 2;
     public GameObject gameOverScreenPrefab;
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviour
     public GameState GameState { get; set; }
     private GameObject _gameOverCanvas;
     private float _remainingSlowDuration = 0.0f;
+    private AudioSource _as;
 
     private void Start()
     {
@@ -87,6 +90,7 @@ public class GameManager : MonoBehaviour
                 OnGameOver?.Invoke();
                 ShowGameOverScreen();
                 Timer.Instance.StopTimer();
+                if (gameOverSound != null) _as.PlayOneShot(gameOverSound);
             }
             else
             {
