@@ -696,7 +696,7 @@ MonoBehaviour:
     die.
 
 
-    Ingame, you can pause py pressing ESC.'
+    In game, you can pause py pressing ESC.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6104a01f123d2d94a9eddc299559ac34, type: 2}
   m_sharedMaterial: {fileID: -1893538120041392112, guid: 6104a01f123d2d94a9eddc299559ac34, type: 2}
@@ -951,7 +951,7 @@ MonoBehaviour:
 
 
     The
-    multiplier is goign down with time. Keep it as high as possible to maximize your
+    multiplier is going down with time. Keep it as high as possible to maximize your
     score.
 
 
