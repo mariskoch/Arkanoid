@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using Utils;
 
@@ -25,6 +26,14 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
+
+        // TODO: Evaluate if this is the best approach
+        if (PlayerPrefs.HasKey("StartTutorial") && PlayerPrefs.GetInt("StartTutorial") == 1)
+        {
+            PlayerPrefs.SetInt("StartTutorial", 0);
+            SceneManager.LoadScene("Tutorial1");
+            GameState = GameState.ReadyToPlay;
+        }
     }
 
     #endregion
@@ -41,7 +50,16 @@ public class GameManager : MonoBehaviour
     public int VolatileScore { get; set; }
     // private variable needed?
     private GameState _gameState;
-    public GameState GameState { get; set; }
+    public GameState GameState
+    {
+        get { return _gameState; }
+        set
+        {
+            Debug.Log(value);
+            _gameState = value;
+        }
+    }
+
     private GameObject _gameOverCanvas;
     private float _remainingSlowDuration = 0.0f;
     private AudioSource _as;

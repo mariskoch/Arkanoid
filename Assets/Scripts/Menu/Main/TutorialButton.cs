@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 
 namespace Menu.Main
 {
@@ -7,7 +8,13 @@ namespace Menu.Main
     {
         public void StartTutorial()
         {
-            SceneManager.LoadScene("Tutorial1");
+            // TODO: Evaluate if this is the best approach
+            if (GameManager.Instance)
+            {
+                GameManager.Instance.GameState = GameState.ReadyToPlay;
+            }
+            PlayerPrefs.SetInt("StartTutorial", 1);
+            SceneManager.LoadScene("Level1");
         }
     }
 }
