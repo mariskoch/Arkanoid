@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
     public int VolatileScore { get; set; }
     // private variable needed?
     private GameState _gameState;
+    // TODO: revert back to normal
     public GameState GameState
     {
         get { return _gameState; }
