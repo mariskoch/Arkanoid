@@ -25,6 +25,7 @@ public class MainMenuButton : MonoBehaviour
             GameManager.Instance.GameState = GameState.Menu;
             GameManager.Instance.ResetLives();
             GameManager.Instance.currentLevel = 1;
+            GameManager.Instance.currentTutorial = 1;
             UIManager.Instance.ResetScore();
             Timer.Instance.ResetTimer();
             SceneManager.LoadScene("MainMenu");

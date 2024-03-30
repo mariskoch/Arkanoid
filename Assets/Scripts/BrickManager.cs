@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Utils;
 
@@ -48,7 +49,7 @@ public class BrickManager : MonoBehaviour
             if (_levelPassedInstance == null)
             {
                 _levelPassedInstance = Instantiate(LevelPassedCanvasPrefab);
-                UIManager.Instance.SaveScore();
+                if (GameManager.AreLivesAndScoreCounted()) UIManager.Instance.SaveScore();
                 Timer.Instance.StopTimer();
             }
         }

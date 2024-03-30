@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.SceneManagement;
 using Utils;
 
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("StartTutorial", 0);
             SceneManager.LoadScene("Tutorial1");
+            currentTutorial = 1;
             GameState = GameState.ReadyToPlay;
         }
     }
@@ -40,6 +43,8 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public int currentLevel = 1;
     [SerializeField] private AudioClip gameOverSound;
+    [SerializeField] public int availableTutorials;
+    public int currentTutorial = 1;
     public int availableLevels = 2;
     public int availableLives = 2;
     public GameObject gameOverScreenPrefab;
@@ -47,9 +52,12 @@ public class GameManager : MonoBehaviour
     public static event Action OnGameOver;
     public int Lives { get; set; }
     public int Score { get; set; }
+
     public int VolatileScore { get; set; }
+
     // private variable needed?
     private GameState _gameState;
+
     // TODO: revert back to normal
     public GameState GameState
     {
@@ -73,7 +81,7 @@ public class GameManager : MonoBehaviour
         Score = 0;
         Ball.OnBallDeath += OnBallDeath;
     }
-    
+
     // TODO: Remove - for debugging only
     /*
     private void Update()
@@ -94,14 +102,16 @@ public class GameManager : MonoBehaviour
         }
     }
     */
-    
+
     private void OnBallDeath(Ball ball)
     {
         if (BallManager.Instance.Balls.Count <= 0)
         {
-            this.Lives--;
-
-            OnLiveReduction?.Invoke(Lives);
+            if (AreLivesAndScoreCounted())
+            {
+                this.Lives--;
+                OnLiveReduction?.Invoke(Lives);   
+            }
 
             if (this.Lives <= 0)
             {
@@ -122,6 +132,14 @@ public class GameManager : MonoBehaviour
                 Timer.Instance.StopTimer(true);
             }
         }
+    }
+
+    public static bool AreLivesAndScoreCounted()
+    {
+        return (!SceneManager.GetActiveScene().name.Contains("Tutorial") ||
+                SceneManager.GetActiveScene().name.Contains("Tutorial") &&
+                int.Parse(SceneManager.GetActiveScene().name
+                    .Split("Tutorial")[1]) >= 4);
     }
 
     private void ShowGameOverScreen()
@@ -163,22 +181,32 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Level" + currentLevel);
     }
 
+    public void LoadNextTutorial()
+    {
+        if (currentTutorial >= availableTutorials) return;
+        Timer.Instance.ResetTimer();
+        currentTutorial++;
+        SceneManager.LoadScene("Tutorial" + currentTutorial);
+    }
+
     public void ChangeGameSpeedForDuration(float speed, float duration)
     {
         if (Mathf.Approximately(Time.timeScale, speed) && _remainingSlowDuration > 0.0f)
         {
             _remainingSlowDuration += duration;
             return;
-        } else if (!Mathf.Approximately(Time.timeScale, speed) && _remainingSlowDuration > 0.0f)
+        }
+        else if (!Mathf.Approximately(Time.timeScale, speed) && _remainingSlowDuration > 0.0f)
         {
             ChangeGameToSpeed(speed);
             _remainingSlowDuration = duration;
             return;
         }
+
         ChangeGameToSpeed(speed);
         StartCoroutine(ResetSpeedAfterTime(duration));
     }
-    
+
     private void ChangeGameToSpeed(float speed)
     {
         Time.timeScale = speed;
@@ -192,6 +220,7 @@ public class GameManager : MonoBehaviour
             _remainingSlowDuration = Mathf.MoveTowards(_remainingSlowDuration, 0.0f, Time.deltaTime);
             yield return null;
         }
+
         ChangeGameToSpeed(1.0f);
     }
 
