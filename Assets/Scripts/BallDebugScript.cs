@@ -9,7 +9,7 @@ public class BallDebugScript : MonoBehaviour
 
     private void Awake()
     {
-        Time.timeScale = 0.75f;
+        Time.timeScale = 1f;
     }
 
     private void Start()
