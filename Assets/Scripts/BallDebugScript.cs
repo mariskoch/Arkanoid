@@ -3,7 +3,6 @@
 public class BallDebugScript : MonoBehaviour
 {
     [SerializeField] private Vector2 targetPoint = Vector2.zero;
-    // [SerializeField] private float ballSpeed;
 
     private Rigidbody2D _rb;
 
