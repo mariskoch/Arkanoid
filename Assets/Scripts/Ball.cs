@@ -24,7 +24,7 @@ public class Ball : MonoBehaviour
         if (GameManager.Instance.GameState != GameState.GameRunning) return;
         var velocity = _rb.velocity;
         // ensure, that the ball can NOT go perfectly horizontal
-        if (Math.Abs(velocity.y) <= verticalSupportThresholdAndSupport)
+        if (Math.Abs(velocity.y) < verticalSupportThresholdAndSupport)
         {
             Debug.Log("Gave Ball a vertical kick");
             var isMovingUp = velocity.y > 0;
