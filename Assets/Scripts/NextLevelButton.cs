@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils;
 
@@ -17,7 +18,14 @@ public class NextLevelButton : MonoBehaviour
         {
             GameManager.Instance.ResetGameSpeedImmediately();
             GameManager.Instance.GameState = GameState.ReadyToPlay;
-            GameManager.Instance.LoadNextLevel();
+            if (SceneManager.GetActiveScene().name.Contains("Tutorial"))
+            {
+                GameManager.Instance.LoadNextTutorial();
+            }
+            else
+            {
+                GameManager.Instance.LoadNextLevel();   
+            }
         });
     }
 }

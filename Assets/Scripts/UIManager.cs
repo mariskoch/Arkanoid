@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -33,13 +34,13 @@ public class UIManager : MonoBehaviour
         SetScore(GameManager.Instance.Score);
         
         GameManager.Instance.OnLiveReduction += SetLives;
-        Brick.OnBrickDestruction += UpdateScore;
+        if (GameManager.AreLivesAndScoreCounted()) Brick.OnBrickDestruction += UpdateScore;
     }
 
     private void OnDisable()
     {
         GameManager.Instance.OnLiveReduction -= SetLives;
-        Brick.OnBrickDestruction -= UpdateScore;
+        if (GameManager.AreLivesAndScoreCounted()) Brick.OnBrickDestruction -= UpdateScore;
     }
 
     public void SetLives(int lives)
