@@ -113,6 +113,7 @@ public class GameManager : MonoBehaviour
                 UIManager.Instance.SetVScore(0);
                 VolatileScore = 0;
                 Timer.Instance.StopTimer(true);
+                ResetGameSpeedImmediately();
             }
         }
     }
