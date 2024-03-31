@@ -8,7 +8,6 @@ namespace Menu.Main
     {
         public void StartTutorial()
         {
-            // TODO: Evaluate if this is the best approach
             if (GameManager.Instance)
             {
                 GameManager.Instance.GameState = GameState.ReadyToPlay;

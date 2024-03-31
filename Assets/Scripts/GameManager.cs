@@ -1,9 +1,6 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.InputSystem.Controls;
 using UnityEngine.SceneManagement;
 using Utils;
 
@@ -29,7 +26,6 @@ public class GameManager : MonoBehaviour
             _instance = this;
         }
 
-        // TODO: Evaluate if this is the best approach
         if (PlayerPrefs.HasKey("StartTutorial") && PlayerPrefs.GetInt("StartTutorial") == 1)
         {
             PlayerPrefs.SetInt("StartTutorial", 0);
@@ -55,19 +51,7 @@ public class GameManager : MonoBehaviour
 
     public int VolatileScore { get; set; }
 
-    // private variable needed?
-    private GameState _gameState;
-
-    // TODO: revert back to normal
-    public GameState GameState
-    {
-        get { return _gameState; }
-        set
-        {
-            Debug.Log(value);
-            _gameState = value;
-        }
-    }
+    public GameState GameState { get; set; }
 
     private GameObject _gameOverCanvas;
     private float _remainingSlowDuration = 0.0f;
@@ -75,7 +59,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //Screen.SetResolution(2560, 1440, true);
         GameState = GameState.ReadyToPlay;
         ResetLives();
         Score = 0;
