@@ -26,6 +26,7 @@ public class Ball : MonoBehaviour
         // ensure, that the ball can NOT go perfectly horizontal
         if (Math.Abs(velocity.y) <= verticalSupportThresholdAndSupport)
         {
+            Debug.Log("Gave Ball a vertical kick");
             var isMovingUp = velocity.y > 0;
             _rb.velocity = new Vector2(velocity.x,
                 isMovingUp ? verticalSupportThresholdAndSupport : -verticalSupportThresholdAndSupport);
@@ -38,10 +39,12 @@ public class Ball : MonoBehaviour
         RaycastHit2D hitLeft = Physics2D.Raycast(new Vector2(pos.x - ccRadius - 0.01f, pos.y), Vector2.left, ccRadius / 2);
         if (Mathf.Approximately(velocity.x, 0.0f) && hitRight.collider != null && hitRight.collider.CompareTag("Border"))
         {
+            Debug.Log("Gave Ball a horizontal kick from wall");
             _rb.velocity = new Vector2(-horizontalSupportKick, velocity.y).normalized * BallManager.Instance.BallSpeed;
             return;
         } else if (Mathf.Approximately(velocity.x, 0.0f) && hitLeft.collider != null && hitLeft.collider.CompareTag("Border"))
         {
+            Debug.Log("Gave Ball a horizontal kick from wall");
             _rb.velocity = new Vector2(+horizontalSupportKick, velocity.y).normalized * BallManager.Instance.BallSpeed;
             return;
         }
@@ -52,12 +55,24 @@ public class Ball : MonoBehaviour
         {
             if (velocity.x < 0.0f)
             {
+                Debug.Log("Gave Ball a horizontal kick from softlock");
                 _rb.velocity = new Vector2(-horizontalSupportKick, velocity.y).normalized * BallManager.Instance.BallSpeed;
             }
             else
             {
+                Debug.Log("Gave Ball a horizontal kick from softlock");
                 _rb.velocity = new Vector2(horizontalSupportKick, velocity.y).normalized * BallManager.Instance.BallSpeed;
             }
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (GameManager.Instance.GameState != GameState.GameRunning) return;
+        if (!Mathf.Approximately(_rb.velocity.magnitude, BallManager.Instance.BallSpeed))
+        {
+            Debug.Log("Corrected Ballspeed");
+            _rb.velocity = _rb.velocity.normalized * BallManager.Instance.BallSpeed;
         }
     }
 
