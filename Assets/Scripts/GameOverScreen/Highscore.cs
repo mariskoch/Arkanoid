@@ -33,6 +33,7 @@ namespace GameOverScreen
                 {
                     highscoreErrorText.GetComponent<ShowText>()?.Show();
                     ShowHighscore(highscore ?? 0);
+                    Debug.Log(e);
                 }
             }
             else
