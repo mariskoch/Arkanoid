@@ -48,7 +48,7 @@ public class Ball : MonoBehaviour
         
         // ensure, that the ball can not get vertically soft locked between unbreakable block and ceiling
         RaycastHit2D hitDown = Physics2D.Raycast(new Vector2(pos.x, pos.y - ccRadius - 0.01f), Vector2.down);
-        if (Mathf.Abs(velocity.x) < 1E-06f && hitDown.collider.CompareTag("UnbreakableBrick"))
+        if (Mathf.Abs(velocity.x) < horizontalSupportKick && hitDown.collider.CompareTag("UnbreakableBrick"))
         {
             if (velocity.x < 0.0f)
             {

@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verticalSupportThresholdAndSupport: 1.5
-  horizontalSupportKick: 1
+  horizontalSupportKick: 1.5
 --- !u!50 &4062459346034025954
 Rigidbody2D:
   serializedVersion: 4
