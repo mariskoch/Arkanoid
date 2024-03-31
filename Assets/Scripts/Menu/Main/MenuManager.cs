@@ -25,18 +25,15 @@ namespace Menu.Main
         #endregion
         
         [SerializeField] private Canvas mainMenuCanvas;
-        [SerializeField] private Canvas optionsCanvas;
         
         public void SwitchToOptions()
         {
             mainMenuCanvas.enabled = false;
-            optionsCanvas.enabled = true;
         }
 
         public void SwitchToMainMenu()
         {
             mainMenuCanvas.enabled = true;
-            optionsCanvas.enabled = false;
         }
     }
 }
