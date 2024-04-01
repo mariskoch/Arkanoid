@@ -477,7 +477,7 @@ MonoBehaviour:
   gameOverSound: {fileID: 8300000, guid: 8d463821c9b8dee4e8d1948f6b4665f8, type: 3}
   availableTutorials: 5
   currentTutorial: 1
-  availableLevels: 6
+  availableLevels: 7
   availableLives: 5
   gameOverScreenPrefab: {fileID: 5466376808556150789, guid: 1ec3a644bc2d78c4c9439bddad8a6356, type: 3}
 --- !u!4 &2064878863

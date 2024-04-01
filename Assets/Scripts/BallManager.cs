@@ -15,6 +15,7 @@ public class BallManager : MonoBehaviour
     
     [SerializeField] private float initialBallSpacingToPaddle = 0.4f;
     [SerializeField] private Ball ballPrefab;
+    [SerializeField] private int maxAmountOfBalls = 25;
     
     private Ball _initialBall;
     private Rigidbody2D _initialBallRb;
@@ -90,6 +91,7 @@ public class BallManager : MonoBehaviour
     {
         for (var i = 0; i < amount; i++)
         {
+            if (Balls.Count >= maxAmountOfBalls) return;
             var spawned = Instantiate(ballPrefab, position, Quaternion.identity);
             var spawnedRb = spawned.GetComponent<Rigidbody2D>();
             spawnedRb.isKinematic = false;
