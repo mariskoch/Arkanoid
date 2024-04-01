@@ -11,6 +11,7 @@ namespace GameEssentials.Ball
         [SerializeField] private float horizontalSupportKick = 1f;
         private Rigidbody2D _rb;
         private CircleCollider2D _cc;
+        private bool _debug = false;
 
         public static event Action<Ball> OnBallDeath;
 
@@ -30,7 +31,7 @@ namespace GameEssentials.Ball
             // ensure, that the ball can NOT go perfectly horizontal
             if (Math.Abs(velocity.y) < verticalSupportThresholdAndSupport)
             {
-                Debug.Log("Gave Ball a vertical kick");
+                if (_debug) Debug.Log("Gave Ball a vertical kick");
                 var isMovingUp = velocity.y > 0;
                 _rb.velocity = new Vector2(velocity.x,
                     isMovingUp ? verticalSupportThresholdAndSupport : -verticalSupportThresholdAndSupport);
@@ -46,7 +47,7 @@ namespace GameEssentials.Ball
             if (Mathf.Approximately(velocity.x, 0.0f) && hitRight.collider != null &&
                 hitRight.collider.CompareTag("Border"))
             {
-                Debug.Log("Gave Ball a horizontal kick from wall");
+                if (_debug) Debug.Log("Gave Ball a horizontal kick from wall");
                 _rb.velocity = new Vector2(-horizontalSupportKick, velocity.y).normalized *
                                BallManager.Instance.BallSpeed;
                 return;
@@ -54,7 +55,7 @@ namespace GameEssentials.Ball
             else if (Mathf.Approximately(velocity.x, 0.0f) && hitLeft.collider != null &&
                      hitLeft.collider.CompareTag("Border"))
             {
-                Debug.Log("Gave Ball a horizontal kick from wall");
+                if (_debug) Debug.Log("Gave Ball a horizontal kick from wall");
                 _rb.velocity = new Vector2(+horizontalSupportKick, velocity.y).normalized *
                                BallManager.Instance.BallSpeed;
                 return;
@@ -66,13 +67,13 @@ namespace GameEssentials.Ball
             {
                 if (velocity.x < 0.0f)
                 {
-                    Debug.Log("Gave Ball a horizontal kick from softlock");
+                    if (_debug) Debug.Log("Gave Ball a horizontal kick from softlock");
                     _rb.velocity = new Vector2(-horizontalSupportKick, velocity.y).normalized *
                                    BallManager.Instance.BallSpeed;
                 }
                 else
                 {
-                    Debug.Log("Gave Ball a horizontal kick from softlock");
+                    if (_debug) Debug.Log("Gave Ball a horizontal kick from softlock");
                     _rb.velocity = new Vector2(horizontalSupportKick, velocity.y).normalized *
                                    BallManager.Instance.BallSpeed;
                 }
@@ -84,7 +85,7 @@ namespace GameEssentials.Ball
             if (GameManager.Instance.GameState != GameState.GameRunning) return;
             if (!Mathf.Approximately(_rb.velocity.magnitude, BallManager.Instance.BallSpeed))
             {
-                Debug.Log("Corrected Ballspeed");
+                if (_debug) Debug.Log("Corrected Ballspeed");
                 _rb.velocity = _rb.velocity.normalized * BallManager.Instance.BallSpeed;
             }
         }
