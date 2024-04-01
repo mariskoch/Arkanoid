@@ -18,13 +18,16 @@ namespace Menu
             _mainMenuButton.onClick.AddListener(() =>
             {
                 // save highscore when run is stopped between levels
-                if (GameManager.Instance.currentLevel != GameManager.Instance.availableLevels &&
+                if (!PlayerPrefs.HasKey("Highscore") && GameManager.Instance.Score > 0 ||
+                    GameManager.Instance.GameState == GameState.Paused &&
+                    GameManager.Instance.Score > Highscore.GetHighscore() ||
+                    GameManager.Instance.currentLevel != GameManager.Instance.availableLevels &&
                     GameManager.Instance.GameState == GameState.Win &&
                     GameManager.Instance.Score > Highscore.GetHighscore())
                 {
                     Highscore.SaveHighscore(GameManager.Instance.Score);
                 }
-
+                
                 Time.timeScale = 1;
                 GameManager.Instance.GameState = GameState.Menu;
                 GameManager.Instance.ResetLives();
