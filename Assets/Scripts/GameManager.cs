@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using GameEssentials.Ball;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
@@ -66,7 +67,7 @@ public class GameManager : MonoBehaviour
     }
 
     // TODO: Remove - for debugging only
-    /*
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K) && (GameState == GameState.ReadyToPlay || GameState == GameState.GameRunning))
@@ -84,7 +85,7 @@ public class GameManager : MonoBehaviour
             LoadNextLevel();
         }
     }
-    */
+    
 
     private void OnBallDeath(Ball ball)
     {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameEssentials.Ball;
 using GameEssentials.Paddle;
 using UnityEngine;
 using UnityEngine.InputSystem;
