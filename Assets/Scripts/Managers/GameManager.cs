@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using GameEssentials.Ball;
-using Managers;
 using TimerUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -53,11 +52,8 @@ namespace Managers
         public static event Action OnGameOver;
         public int Lives { get; set; }
         public int Score { get; set; }
-
         public int VolatileScore { get; set; }
-
         public GameState GameState { get; set; }
-
         private GameObject _gameOverCanvas;
         private float _remainingSlowDuration = 0.0f;
         private AudioSource _as;
@@ -69,32 +65,6 @@ namespace Managers
             Score = 0;
             Ball.OnBallDeath += OnBallDeath;
         }
-
-        // TODO: Remove - for debugging only
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.K) &&
-                (GameState == GameState.ReadyToPlay || GameState == GameState.GameRunning))
-            {
-                PlayerPrefs.SetInt("Highscore", 0);
-            }
-
-            if (Input.GetKeyDown(KeyCode.L) &&
-                (GameState == GameState.ReadyToPlay || GameState == GameState.GameRunning))
-            {
-                currentLevel = 3 - 1;
-                LoadNextLevel();
-            }
-
-            if (Input.GetKeyDown(KeyCode.O) &&
-                (GameState == GameState.ReadyToPlay || GameState == GameState.GameRunning))
-            {
-                currentLevel = 7 - 1;
-                LoadNextLevel();
-            }
-        }
-
 
         private void OnBallDeath(Ball ball)
         {
