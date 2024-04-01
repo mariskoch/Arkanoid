@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Managers;
 using UnityEngine;
 
 namespace PowerUps

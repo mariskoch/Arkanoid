@@ -1,5 +1,6 @@
 ﻿using System;
 using GameOverScreen;
+using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
