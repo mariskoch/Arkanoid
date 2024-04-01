@@ -1,7 +1,7 @@
 using System;
+using GameEssentials.Brick;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Managers
 {
