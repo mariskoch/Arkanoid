@@ -1,4 +1,5 @@
 using GameEssentials.Ball;
+using Managers;
 using UnityEngine;
 
 public class DeathScreen : MonoBehaviour
