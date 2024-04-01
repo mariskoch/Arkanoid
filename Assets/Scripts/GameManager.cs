@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int currentLevel = 1;
     [SerializeField] private AudioClip gameOverSound;
     [SerializeField] public int availableTutorials;
-    public int currentTutorial = 1;
+    [HideInInspector] public int currentTutorial = 1;
     public int availableLevels = 2;
     public int availableLives = 2;
     public GameObject gameOverScreenPrefab;
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.O) && (GameState == GameState.ReadyToPlay || GameState == GameState.GameRunning))
         {
-            currentLevel = 6 - 1;
+            currentLevel = 7 - 1;
             LoadNextLevel();
         }
     }
