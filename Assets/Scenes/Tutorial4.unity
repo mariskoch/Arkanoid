@@ -1372,7 +1372,7 @@ MonoBehaviour:
 
 
     In
-    game, you can      py pressing ESC.'
+    game, you can      by pressing ESC.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6104a01f123d2d94a9eddc299559ac34, type: 2}
   m_sharedMaterial: {fileID: -1893538120041392112, guid: 6104a01f123d2d94a9eddc299559ac34, type: 2}
