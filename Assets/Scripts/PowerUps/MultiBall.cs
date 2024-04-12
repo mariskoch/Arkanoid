@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using GameEssentials.Ball;
+using Managers;
 
 namespace PowerUps
 {

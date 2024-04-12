@@ -1,3 +1,4 @@
+using GameEssentials.Brick;
 using UnityEngine;
 using Random = System.Random;
 
